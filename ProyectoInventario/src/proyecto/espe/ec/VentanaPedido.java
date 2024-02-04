@@ -95,12 +95,12 @@ public class VentanaPedido extends javax.swing.JFrame {
         jLabel20 = new javax.swing.JLabel();
         jTextField15 = new javax.swing.JTextField();
         jLabel21 = new javax.swing.JLabel();
-        jTextField16 = new javax.swing.JTextField();
+        txtNombreEmpresa = new javax.swing.JTextField();
         jLabel22 = new javax.swing.JLabel();
-        jTextField17 = new javax.swing.JTextField();
+        txtTelefonoEmpresa = new javax.swing.JTextField();
         jLabel23 = new javax.swing.JLabel();
         jScrollPane6 = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
+        txtDireccionEmpresa = new javax.swing.JTextArea();
         jButton14 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -541,9 +541,9 @@ public class VentanaPedido extends javax.swing.JFrame {
         jLabel23.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel23.setText("Dirección");
 
-        jTextArea2.setColumns(20);
-        jTextArea2.setRows(5);
-        jScrollPane6.setViewportView(jTextArea2);
+        txtDireccionEmpresa.setColumns(20);
+        txtDireccionEmpresa.setRows(5);
+        jScrollPane6.setViewportView(txtDireccionEmpresa);
 
         jButton14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/Actualizar (2).png"))); // NOI18N
         jButton14.setText("MODIFICAR");
@@ -576,9 +576,9 @@ public class VentanaPedido extends javax.swing.JFrame {
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel6Layout.createSequentialGroup()
                                 .addGap(52, 52, 52)
-                                .addComponent(jTextField16, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtNombreEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(46, 46, 46)
-                                .addComponent(jTextField17, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
+                                .addComponent(txtTelefonoEmpresa, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
                                 .addGap(13, 13, 13))
                             .addGroup(jPanel6Layout.createSequentialGroup()
                                 .addGap(92, 92, 92)
@@ -600,8 +600,8 @@ public class VentanaPedido extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNombreEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTelefonoEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(43, 43, 43)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel6Layout.createSequentialGroup()
@@ -707,10 +707,7 @@ public class VentanaPedido extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextArea jTextArea2;
     private javax.swing.JTextField jTextField15;
-    private javax.swing.JTextField jTextField16;
-    private javax.swing.JTextField jTextField17;
     private javax.swing.JLabel lbLogo2;
     private javax.swing.JTable tblCliente;
     private javax.swing.JTable tblPedido;
@@ -725,11 +722,14 @@ public class VentanaPedido extends javax.swing.JFrame {
     private javax.swing.JTextField txtCodigoProducto;
     private javax.swing.JTextField txtContactoCliente;
     private javax.swing.JTextArea txtDireccionCliente;
+    private javax.swing.JTextArea txtDireccionEmpresa;
     private javax.swing.JTextField txtNombreCliente;
+    private javax.swing.JTextField txtNombreEmpresa;
     private javax.swing.JTextField txtNombrePedido;
     private javax.swing.JTextField txtPrecioPedido;
     private javax.swing.JTextField txtPrecioProducto;
     private javax.swing.JTextField txtProductoPedido;
     private javax.swing.JTextField txtStockPedido;
+    private javax.swing.JTextField txtTelefonoEmpresa;
     // End of variables declaration//GEN-END:variables
 }
