@@ -434,6 +434,11 @@ public class VentanaPedido extends javax.swing.JFrame {
         });
 
         btnAgregarCliente.setText("AGREGAR");
+        btnAgregarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarClienteActionPerformed(evt);
+            }
+        });
 
         btnEditarCliente.setText("MODIFICAR");
 
@@ -869,6 +874,10 @@ public class VentanaPedido extends javax.swing.JFrame {
     private void cmbSeleccionProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbSeleccionProductoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbSeleccionProductoActionPerformed
+
+    private void btnAgregarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarClienteActionPerformed
+        //sda
+    }//GEN-LAST:event_btnAgregarClienteActionPerformed
 
     /**
      * @param args the command line arguments
