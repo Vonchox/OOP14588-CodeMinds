@@ -82,21 +82,33 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="CLIENTE"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnClientesActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnProductos">
           <Properties>
             <Property name="text" type="java.lang.String" value="PRODUCTOS"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnProductosActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnVentas">
           <Properties>
             <Property name="text" type="java.lang.String" value="VENTAS"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnVentasActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnInformacion">
           <Properties>
             <Property name="text" type="java.lang.String" value="INFORMACION"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnInformacionActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

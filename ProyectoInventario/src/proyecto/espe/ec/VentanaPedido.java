@@ -111,12 +111,32 @@ public class VentanaPedido extends javax.swing.JFrame {
         });
 
         btnClientes.setText("CLIENTE");
+        btnClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClientesActionPerformed(evt);
+            }
+        });
 
         btnProductos.setText("PRODUCTOS");
+        btnProductos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProductosActionPerformed(evt);
+            }
+        });
 
         btnVentas.setText("VENTAS");
+        btnVentas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVentasActionPerformed(evt);
+            }
+        });
 
         btnInformacion.setText("INFORMACION");
+        btnInformacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInformacionActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -619,6 +639,22 @@ public class VentanaPedido extends javax.swing.JFrame {
     private void btnPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPedidosActionPerformed
         jTabbedPane1.setSelectedIndex(0);
     }//GEN-LAST:event_btnPedidosActionPerformed
+
+    private void btnClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientesActionPerformed
+        jTabbedPane1.setSelectedIndex(1);
+    }//GEN-LAST:event_btnClientesActionPerformed
+
+    private void btnProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductosActionPerformed
+       jTabbedPane1.setSelectedIndex(2);
+    }//GEN-LAST:event_btnProductosActionPerformed
+
+    private void btnVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVentasActionPerformed
+         jTabbedPane1.setSelectedIndex(3);
+    }//GEN-LAST:event_btnVentasActionPerformed
+
+    private void btnInformacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInformacionActionPerformed
+       jTabbedPane1.setSelectedIndex(4);
+    }//GEN-LAST:event_btnInformacionActionPerformed
 
     /**
      * @param args the command line arguments
