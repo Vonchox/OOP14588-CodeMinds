@@ -178,7 +178,7 @@
                                               <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
                                               <Component id="txtPrecioPedido" min="-2" pref="73" max="-2" attributes="0"/>
                                               <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-                                              <Component id="txtStockPedido" min="-2" max="-2" attributes="0"/>
+                                              <Component id="txtStockPedido" min="-2" pref="90" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
                                   </Group>
