@@ -4,18 +4,84 @@
  */
 package proyecto.espe.ec;
 
+import com.mongodb.DB;
+import com.mongodb.client.FindIterable;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.result.DeleteResult;
+import com.mongodb.client.result.UpdateResult;
+import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
+import org.bson.Document;
+import org.bson.types.ObjectId;
+
 /**
  *
  * @author PC
  */
 public class VentanaPedido extends javax.swing.JFrame {
 
+     Conexion conn = new Conexion();
+    MongoDatabase database;
+    DB db;
+    int filaSeleccionada = -1;
     
     public VentanaPedido() {
+         if (conn != null) {
+            conn = conn.crearConexion();
+            database = conn.getDataB();
+        }
         initComponents();
+        mostrarDatosTablaPedido();
     }
 
-   
+    public void mostrarDatosTablaPedido() {
+        DefaultTableModel modeloTabla = (DefaultTableModel) tblPedido.getModel();
+        modeloTabla.setRowCount(0);
+
+        MongoCollection<Document> collection = database.getCollection("Pedidos");
+        FindIterable<Document> documents = collection.find();
+
+        for (Document document : documents) {
+            Object codigo = document.get("_id");
+            String producto = document.getString("producto");
+            String cantidad = document.getString("cantidad");
+            String precio = document.getString("precio");
+            String stock = document.getString("total");
+
+            modeloTabla.addRow(new Object[]{codigo, producto, cantidad, precio, stock});
+        }
+        TableColumnModel columnModel = tblPedido.getColumnModel();
+        TableColumn columna = columnModel.getColumn(0);
+        columna.setMinWidth(0);
+        columna.setMaxWidth(0);
+
+    }
+
+    private void limpiarPedido() {
+        txtCodigoPedido.setText("");
+        txtProductoPedido.setText("");
+        txtPrecioProducto.setText("");
+        txtCantiddPedido.setText("");
+        txtStockPedido.setText("");
+    }
+
+    private void mostrarDatosCamposPedido() {
+
+        filaSeleccionada = tblPedido.getSelectedRow();
+        if (filaSeleccionada == -1) {
+            return;
+        }
+        DefaultTableModel modeloTabla = (DefaultTableModel) tblPedido.getModel();
+        txtCodigoPedido.setText(modeloTabla.getValueAt(filaSeleccionada, 0).toString());
+        txtProductoPedido.setText(modeloTabla.getValueAt(filaSeleccionada, 1).toString());
+        txtCantiddPedido.setText(modeloTabla.getValueAt(filaSeleccionada, 2).toString());
+        txtPrecioPedido.setText(modeloTabla.getValueAt(filaSeleccionada, 3).toString());
+        txtStockPedido.setText(modeloTabla.getValueAt(filaSeleccionada, 4).toString());
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -33,7 +99,6 @@ public class VentanaPedido extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        txtCodigoPedido = new javax.swing.JTextField();
         txtProductoPedido = new javax.swing.JTextField();
         txtCantiddPedido = new javax.swing.JTextField();
         txtPrecioPedido = new javax.swing.JTextField();
@@ -42,10 +107,11 @@ public class VentanaPedido extends javax.swing.JFrame {
         tblPedido = new javax.swing.JTable();
         jLabel7 = new javax.swing.JLabel();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        txtCedulaVenta = new javax.swing.JTextField();
-        txtNombrePedido = new javax.swing.JTextField();
+        txtCodigoPedido = new javax.swing.JLabel();
+        GuardarPedido = new javax.swing.JButton();
+        ModificarPedido = new javax.swing.JButton();
+        EliminarPedido = new javax.swing.JButton();
+        LimpiarPedido = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
@@ -191,9 +257,33 @@ public class VentanaPedido extends javax.swing.JFrame {
 
         jLabel7.setText("FECHA");
 
-        jLabel8.setText("CEDULA");
+        GuardarPedido.setText("AGREGAR");
+        GuardarPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GuardarPedidoActionPerformed(evt);
+            }
+        });
 
-        jLabel9.setText("NOMBRE");
+        ModificarPedido.setText("MODIFICAR");
+        ModificarPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ModificarPedidoActionPerformed(evt);
+            }
+        });
+
+        EliminarPedido.setText("ELIMINAR");
+        EliminarPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EliminarPedidoActionPerformed(evt);
+            }
+        });
+
+        LimpiarPedido.setText("LIMPIAR");
+        LimpiarPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LimpiarPedidoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -209,22 +299,18 @@ public class VentanaPedido extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(28, 28, 28)
-                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(83, 83, 83)
-                                .addComponent(jLabel9))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addGap(18, 18, 18)
                                         .addComponent(jLabel2)
                                         .addGap(48, 48, 48)
                                         .addComponent(jLabel3)
                                         .addGap(97, 97, 97)
                                         .addComponent(jLabel4))
                                     .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(txtCodigoPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
+                                        .addContainerGap()
+                                        .addComponent(txtCodigoPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(txtProductoPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(45, 45, 45)
                                         .addComponent(txtCantiddPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -241,14 +327,19 @@ public class VentanaPedido extends javax.swing.JFrame {
                                         .addComponent(txtStockPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(17, 17, 17)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 560, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(txtCedulaVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(txtNombrePedido, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 560, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 83, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(37, 37, 37)
+                .addComponent(GuardarPedido)
+                .addGap(38, 38, 38)
+                .addComponent(ModificarPedido)
+                .addGap(26, 26, 26)
+                .addComponent(EliminarPedido)
+                .addGap(41, 41, 41)
+                .addComponent(LimpiarPedido)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -261,7 +352,6 @@ public class VentanaPedido extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(50, 50, 50)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtCodigoPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtProductoPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtCantiddPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -275,18 +365,18 @@ public class VentanaPedido extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtPrecioPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtStockPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txtStockPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtCodigoPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(32, 32, 32)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel9))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtCedulaVenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNombrePedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(GuardarPedido)
+                        .addComponent(ModificarPedido)
+                        .addComponent(EliminarPedido))
+                    .addComponent(LimpiarPedido))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("tab1", jPanel2);
@@ -656,6 +746,80 @@ public class VentanaPedido extends javax.swing.JFrame {
        jTabbedPane1.setSelectedIndex(4);
     }//GEN-LAST:event_btnInformacionActionPerformed
 
+    private void ModificarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModificarPedidoActionPerformed
+         if (filaSeleccionada >= 0) {
+            int confirmacion = JOptionPane.showConfirmDialog(null, "Seguro de Actualizar los datos?", "Confirmar Actualizacion", JOptionPane.YES_NO_OPTION);
+
+            if (confirmacion == JOptionPane.YES_OPTION) {
+                MongoCollection coleccion = database.getCollection("Pedidos");
+
+                Document filtro = new Document("_id", new ObjectId(txtCodigoPedido.getText()));
+                Document documento = new Document("$set", new Document()
+                        .append("producto", txtProductoPedido.getText())
+                        .append("cantidad", txtCantiddPedido.getText())
+                        .append("precio", txtPrecioPedido.getText())
+                        .append("total", txtStockPedido.getText()));
+                UpdateResult result = coleccion.updateOne(filtro, documento);
+                mostrarDatosTablaPedido();
+                if (result.getModifiedCount() > 0) {
+                    JOptionPane.showMessageDialog(null, "Documento actualizado correctamente");
+                } else {
+                    JOptionPane.showConfirmDialog(null, "No se encontro el documento para actualizar");
+                }
+            } else {
+                ListSelectionModel seleccionModel = tblPedido.getSelectionModel();
+                seleccionModel.clearSelection();
+                filaSeleccionada = -1;
+            }
+        } else {
+            JOptionPane.showConfirmDialog(null, "Seleccione el registro a Actualizar");
+        }
+        limpiarPedido();
+        GuardarPedido.setVisible(true);
+    }//GEN-LAST:event_ModificarPedidoActionPerformed
+
+    private void GuardarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarPedidoActionPerformed
+        MongoCollection coleccion = database.getCollection("Registro");
+        Document documento = new Document("producto", txtCodigoPedido.getText())
+                .append("cantidad", txtCantiddPedido.getText())
+                .append("precio", txtPrecioPedido.getText())
+                .append("total", txtStockPedido.getText());
+        coleccion.insertOne(documento);
+        mostrarDatosTablaPedido();
+    }//GEN-LAST:event_GuardarPedidoActionPerformed
+
+    private void EliminarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarPedidoActionPerformed
+          if (filaSeleccionada >= 0) {
+            int confirmacion = JOptionPane.showConfirmDialog(null, "Seguro de eliminar los datos?", "Confirmacion", JOptionPane.YES_NO_OPTION);
+            if (confirmacion == JOptionPane.YES_OPTION) {
+                DefaultTableModel modeloTabla = (DefaultTableModel) tblPedido.getModel();
+                MongoCollection coleccion = database.getCollection("Registro");
+                Document filtro = new Document("_id", new ObjectId(txtCodigoPedido.getText()));
+                DeleteResult result = coleccion.deleteOne(filtro);
+
+                if (result.getDeletedCount() > 0) {
+                    JOptionPane.showMessageDialog(null, "Registro eliminado Correctamente");
+                    modeloTabla.removeRow(filaSeleccionada);
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se encontro el registro para eliminarlo");
+
+                }
+            } else {
+                ListSelectionModel seleccionModel = tblPedido.getSelectionModel();
+                seleccionModel.clearSelection();
+                filaSeleccionada = -1;
+
+            }
+            limpiarPedido();
+        } else {
+            JOptionPane.showMessageDialog(null, "Seleccione un registro para eliminar");
+        }
+    }//GEN-LAST:event_EliminarPedidoActionPerformed
+
+    private void LimpiarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LimpiarPedidoActionPerformed
+        limpiarPedido();
+    }//GEN-LAST:event_LimpiarPedidoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -692,6 +856,10 @@ public class VentanaPedido extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton EliminarPedido;
+    private javax.swing.JButton GuardarPedido;
+    private javax.swing.JButton LimpiarPedido;
+    private javax.swing.JButton ModificarPedido;
     private javax.swing.JButton btnAgregarCliente;
     private javax.swing.JButton btnAgregarProducto;
     private javax.swing.JButton btnClientes;
@@ -728,8 +896,6 @@ public class VentanaPedido extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -753,15 +919,13 @@ public class VentanaPedido extends javax.swing.JFrame {
     private javax.swing.JTextField txtCantidadProducto;
     private javax.swing.JTextField txtCantiddPedido;
     private javax.swing.JTextField txtCedulaCliente;
-    private javax.swing.JTextField txtCedulaVenta;
-    private javax.swing.JTextField txtCodigoPedido;
+    private javax.swing.JLabel txtCodigoPedido;
     private javax.swing.JTextField txtCodigoProducto;
     private javax.swing.JTextField txtContactoCliente;
     private javax.swing.JTextArea txtDireccionCliente;
     private javax.swing.JTextArea txtDireccionEmpresa;
     private javax.swing.JTextField txtNombreCliente;
     private javax.swing.JTextField txtNombreEmpresa;
-    private javax.swing.JTextField txtNombrePedido;
     private javax.swing.JTextField txtPrecioPedido;
     private javax.swing.JTextField txtPrecioProducto;
     private javax.swing.JTextField txtProductoPedido;

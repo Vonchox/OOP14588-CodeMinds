@@ -144,24 +144,19 @@
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                                      <Component id="jLabel8" min="-2" pref="54" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="83" max="-2" attributes="0"/>
-                                      <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="1" attributes="0">
-                                          <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                          <Group type="102" alignment="1" attributes="0">
+                                              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                                               <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
                                               <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace min="-2" pref="97" max="-2" attributes="0"/>
                                               <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                                           </Group>
-                                          <Group type="102" attributes="0">
-                                              <Component id="txtCodigoPedido" min="-2" pref="73" max="-2" attributes="0"/>
-                                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Group type="102" alignment="1" attributes="0">
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="txtCodigoPedido" min="-2" pref="79" max="-2" attributes="0"/>
+                                              <EmptySpace max="32767" attributes="0"/>
                                               <Component id="txtProductoPedido" min="-2" pref="100" max="-2" attributes="0"/>
                                               <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
                                               <Component id="txtCantiddPedido" min="-2" pref="56" max="-2" attributes="0"/>
@@ -184,20 +179,24 @@
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jScrollPane1" min="-2" pref="560" max="-2" attributes="0"/>
-                                          <Group type="102" attributes="0">
-                                              <Component id="txtCedulaVenta" min="-2" pref="126" max="-2" attributes="0"/>
-                                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                                              <Component id="txtNombrePedido" min="-2" pref="126" max="-2" attributes="0"/>
-                                          </Group>
-                                      </Group>
+                                      <Component id="jScrollPane1" min="-2" pref="560" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace pref="83" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
+                      <Component id="GuardarPedido" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
+                      <Component id="ModificarPedido" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                      <Component id="EliminarPedido" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
+                      <Component id="LimpiarPedido" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -213,7 +212,6 @@
                           <Group type="102" attributes="0">
                               <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="txtCodigoPedido" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="txtProductoPedido" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="txtCantiddPedido" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
@@ -231,22 +229,22 @@
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="txtPrecioPedido" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="txtStockPedido" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtCodigoPedido" alignment="1" min="-2" pref="22" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
                       <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                       <Component id="jScrollPane1" min="-2" pref="136" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="GuardarPedido" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="ModificarPedido" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="EliminarPedido" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="LimpiarPedido" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="txtCedulaVenta" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtNombrePedido" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="42" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -276,8 +274,6 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Stock"/>
               </Properties>
-            </Component>
-            <Component class="javax.swing.JTextField" name="txtCodigoPedido">
             </Component>
             <Component class="javax.swing.JTextField" name="txtProductoPedido">
             </Component>
@@ -354,19 +350,39 @@
             </Component>
             <Component class="com.toedter.calendar.JDateChooser" name="jDateChooser1">
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel8">
+            <Component class="javax.swing.JLabel" name="txtCodigoPedido">
+            </Component>
+            <Component class="javax.swing.JButton" name="GuardarPedido">
               <Properties>
-                <Property name="text" type="java.lang.String" value="CEDULA"/>
+                <Property name="text" type="java.lang.String" value="AGREGAR"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="GuardarPedidoActionPerformed"/>
+              </Events>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel9">
+            <Component class="javax.swing.JButton" name="ModificarPedido">
               <Properties>
-                <Property name="text" type="java.lang.String" value="NOMBRE"/>
+                <Property name="text" type="java.lang.String" value="MODIFICAR"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ModificarPedidoActionPerformed"/>
+              </Events>
             </Component>
-            <Component class="javax.swing.JTextField" name="txtCedulaVenta">
+            <Component class="javax.swing.JButton" name="EliminarPedido">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="ELIMINAR"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="EliminarPedidoActionPerformed"/>
+              </Events>
             </Component>
-            <Component class="javax.swing.JTextField" name="txtNombrePedido">
+            <Component class="javax.swing.JButton" name="LimpiarPedido">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="LIMPIAR"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="LimpiarPedidoActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
