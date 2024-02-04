@@ -101,7 +101,7 @@ public class VentanaPedido extends javax.swing.JFrame {
         jLabel23 = new javax.swing.JLabel();
         jScrollPane6 = new javax.swing.JScrollPane();
         txtDireccionEmpresa = new javax.swing.JTextArea();
-        jButton14 = new javax.swing.JButton();
+        btnModificarEmpresa = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setAutoRequestFocus(false);
@@ -545,8 +545,8 @@ public class VentanaPedido extends javax.swing.JFrame {
         txtDireccionEmpresa.setRows(5);
         jScrollPane6.setViewportView(txtDireccionEmpresa);
 
-        jButton14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/Actualizar (2).png"))); // NOI18N
-        jButton14.setText("MODIFICAR");
+        btnModificarEmpresa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/Actualizar (2).png"))); // NOI18N
+        btnModificarEmpresa.setText("MODIFICAR");
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -567,7 +567,7 @@ public class VentanaPedido extends javax.swing.JFrame {
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(133, 133, 133)
-                        .addComponent(jButton14)
+                        .addComponent(btnModificarEmpresa)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -608,7 +608,7 @@ public class VentanaPedido extends javax.swing.JFrame {
                         .addComponent(jLabel23)
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButton14))
+                    .addComponent(btnModificarEmpresa))
                 .addContainerGap(59, Short.MAX_VALUE))
         );
 
@@ -662,10 +662,10 @@ public class VentanaPedido extends javax.swing.JFrame {
     private javax.swing.JButton btnEliminarProducto;
     private javax.swing.JButton btnLimpiarCliente;
     private javax.swing.JButton btnLimpiarProducto;
+    private javax.swing.JButton btnModificarEmpresa;
     private javax.swing.JButton btnModificarProducto;
     private javax.swing.JComboBox<String> cmbSeleccionProducto;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton14;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
