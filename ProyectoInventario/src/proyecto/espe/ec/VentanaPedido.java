@@ -24,43 +24,14 @@ import org.bson.types.ObjectId;
  */
 public class VentanaPedido extends javax.swing.JFrame {
 
-    Conexion conn = new Conexion();
-    MongoDatabase database;
-    DB db;
-    int filaSeleccionada = -1;
 
     public VentanaPedido() {
-        if (conn != null) {
-            conn = conn.crearConexion();
-            database = conn.getDataB();
-        }
+
         initComponents();
-        mostrarDatosTablaPedido();
-        mostrarDatosTablaCliente();
-        mostrarDatosTablaProductos();
+
 
     }
 
-    public void mostrarDatosTablaProductos() {
-        DefaultTableModel modeloTabla = (DefaultTableModel) tblProducto.getModel();
-        modeloTabla.setRowCount(0);
-
-        MongoCollection<Document> collection = database.getCollection("Productos");
-        FindIterable<Document> documents = collection.find();
-
-        for (Document document : documents) {
-            Object id = document.get("_id");
-            String producto = document.getString("producto");
-            String precio = document.getString("precio");
-            int cantidad = document.getInteger("cantidad");
-
-            modeloTabla.addRow(new Object[]{id, producto, precio, cantidad});
-        }
-        TableColumnModel columnModel = tblProducto.getColumnModel();
-        TableColumn columna = columnModel.getColumn(0);
-        columna.setMinWidth(0);
-        columna.setMaxWidth(0);
-    }
 
     private void limpiarProducto() {
         cmbSeleccionProducto.setSelectedIndex(0);
@@ -69,40 +40,9 @@ public class VentanaPedido extends javax.swing.JFrame {
 
     }
 
-    private void mostrarDatosCamposProducto() {
 
-        filaSeleccionada = tblProducto.getSelectedRow();
-        if (filaSeleccionada == -1) {
-            return;
-        }
-        DefaultTableModel modeloTabla = (DefaultTableModel) tblProducto.getModel();
-        cmbSeleccionProducto.setSelectedItem(modeloTabla.getValueAt(filaSeleccionada, 0).toString());
-        txtPrecioProducto.setText(modeloTabla.getValueAt(filaSeleccionada, 1).toString());
-        spCantidad.setValue(modeloTabla.getValueAt(filaSeleccionada, 2));
 
-    }
 
-    public void mostrarDatosTablaCliente() {
-        DefaultTableModel modeloTabla = (DefaultTableModel) tblCliente.getModel();
-        modeloTabla.setRowCount(0);
-
-        MongoCollection<Document> collection = database.getCollection("Clientes");
-        FindIterable<Document> documents = collection.find();
-
-        for (Document document : documents) {
-            Object id = document.get("_id");
-            String cedula = document.getString("cedula");
-            String nombre = document.getString("nombre");
-            String contacto = document.getString("contacto");
-            String direccion = document.getString("direccion");
-
-            modeloTabla.addRow(new Object[]{id, cedula, nombre, contacto, direccion});
-        }
-        TableColumnModel columnModel = tblCliente.getColumnModel();
-        TableColumn columna = columnModel.getColumn(0);
-        columna.setMinWidth(0);
-        columna.setMaxWidth(0);
-    }
 
     private void limpiarCliente() {
         txtCedulaCliente.setText("");
@@ -112,42 +52,7 @@ public class VentanaPedido extends javax.swing.JFrame {
 
     }
 
-    private void mostrarDatosCamposClientes() {
 
-        filaSeleccionada = tblCliente.getSelectedRow();
-        if (filaSeleccionada == -1) {
-            return;
-        }
-        DefaultTableModel modeloTabla = (DefaultTableModel) tblCliente.getModel();
-        txtCedulaCliente.setText(modeloTabla.getValueAt(filaSeleccionada, 0).toString());
-        txtNombreCliente.setText(modeloTabla.getValueAt(filaSeleccionada, 1).toString());
-        txtContactoCliente.setText(modeloTabla.getValueAt(filaSeleccionada, 2).toString());
-        txtDireccionCliente.setText(modeloTabla.getValueAt(filaSeleccionada, 3).toString());
-
-    }
-
-    public void mostrarDatosTablaPedido() {
-        DefaultTableModel modeloTabla = (DefaultTableModel) tblPedido.getModel();
-        modeloTabla.setRowCount(0);
-
-        MongoCollection<Document> collection = database.getCollection("Pedidos");
-        FindIterable<Document> documents = collection.find();
-
-        for (Document document : documents) {
-            Object codigo = document.get("_id");
-            String producto = document.getString("producto");
-            String cantidad = document.getString("cantidad");
-            String precio = document.getString("precio");
-            String stock = document.getString("total");
-
-            modeloTabla.addRow(new Object[]{codigo, producto, cantidad, precio, stock});
-        }
-        TableColumnModel columnModel = tblPedido.getColumnModel();
-        TableColumn columna = columnModel.getColumn(0);
-        columna.setMinWidth(0);
-        columna.setMaxWidth(0);
-
-    }
 
     private void limpiarPedido() {
         txtCodigoPedido.setText("");
@@ -157,19 +62,6 @@ public class VentanaPedido extends javax.swing.JFrame {
         txtStockPedido.setText("");
     }
 
-    private void mostrarDatosCamposPedido() {
-
-        filaSeleccionada = tblPedido.getSelectedRow();
-        if (filaSeleccionada == -1) {
-            return;
-        }
-        DefaultTableModel modeloTabla = (DefaultTableModel) tblPedido.getModel();
-        txtCodigoPedido.setText(modeloTabla.getValueAt(filaSeleccionada, 0).toString());
-        txtProductoPedido.setText(modeloTabla.getValueAt(filaSeleccionada, 1).toString());
-        txtCantiddPedido.setText(modeloTabla.getValueAt(filaSeleccionada, 2).toString());
-        txtPrecioPedido.setText(modeloTabla.getValueAt(filaSeleccionada, 3).toString());
-        txtStockPedido.setText(modeloTabla.getValueAt(filaSeleccionada, 4).toString());
-    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -343,42 +235,17 @@ public class VentanaPedido extends javax.swing.JFrame {
                 "CÓDIGO", "PRODUCTO", "CANTIDAD", "PRECIO", "TOTAL"
             }
         ));
-        tblPedido.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblPedidoMouseClicked(evt);
-            }
-        });
         jScrollPane1.setViewportView(tblPedido);
 
         jLabel7.setText("FECHA");
 
         GuardarPedido.setText("AGREGAR");
-        GuardarPedido.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                GuardarPedidoActionPerformed(evt);
-            }
-        });
 
         ModificarPedido.setText("MODIFICAR");
-        ModificarPedido.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ModificarPedidoActionPerformed(evt);
-            }
-        });
 
         EliminarPedido.setText("ELIMINAR");
-        EliminarPedido.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EliminarPedidoActionPerformed(evt);
-            }
-        });
 
         LimpiarPedido.setText("LIMPIAR");
-        LimpiarPedido.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                LimpiarPedidoActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -503,40 +370,15 @@ public class VentanaPedido extends javax.swing.JFrame {
                 "NOMBRE", "CEDULA", "TELEFONO", "DIRECCION"
             }
         ));
-        tblCliente.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblClienteMouseClicked(evt);
-            }
-        });
         jScrollPane3.setViewportView(tblCliente);
 
         btnAgregarCliente.setText("AGREGAR");
-        btnAgregarCliente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarClienteActionPerformed(evt);
-            }
-        });
 
         btnEditarCliente.setText("MODIFICAR");
-        btnEditarCliente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditarClienteActionPerformed(evt);
-            }
-        });
 
         btnEliminarCliente.setText("ELIMINAR");
-        btnEliminarCliente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEliminarClienteActionPerformed(evt);
-            }
-        });
 
         btnLimpiarCliente.setText("LIMPIAR");
-        btnLimpiarCliente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLimpiarClienteActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -629,40 +471,15 @@ public class VentanaPedido extends javax.swing.JFrame {
                 "CODIGO", "PRODUCTO", "PRECIO", "STOCK"
             }
         ));
-        tblProducto.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblProductoMouseClicked(evt);
-            }
-        });
         jScrollPane4.setViewportView(tblProducto);
 
         btnAgregarProducto.setText("AGREGAR");
-        btnAgregarProducto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarProductoActionPerformed(evt);
-            }
-        });
 
         btnModificarProducto.setText("EDITAR");
-        btnModificarProducto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnModificarProductoActionPerformed(evt);
-            }
-        });
 
         btnEliminarProducto.setText("ELIMINAR");
-        btnEliminarProducto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEliminarProductoActionPerformed(evt);
-            }
-        });
 
         btnLimpiarProducto.setText("LIMPIAR");
-        btnLimpiarProducto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLimpiarProductoActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -741,6 +558,12 @@ public class VentanaPedido extends javax.swing.JFrame {
         jScrollPane5.setViewportView(tblVentas);
 
         jLabel18.setText("BUSCAR");
+
+        txtBuscarVentas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBuscarVentasActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -857,7 +680,7 @@ public class VentanaPedido extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("INFORMACION", jPanel6);
 
-        getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 120, 660, 380));
+        getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 660, 380));
 
         jPanel7.setBackground(new java.awt.Color(153, 102, 255));
 
@@ -878,260 +701,28 @@ public class VentanaPedido extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPedidosActionPerformed
-        jTabbedPane1.setSelectedIndex(0);
+       
     }//GEN-LAST:event_btnPedidosActionPerformed
 
     private void btnClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientesActionPerformed
-        jTabbedPane1.setSelectedIndex(1);
+        
     }//GEN-LAST:event_btnClientesActionPerformed
 
     private void btnProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductosActionPerformed
-        jTabbedPane1.setSelectedIndex(2);
+        
     }//GEN-LAST:event_btnProductosActionPerformed
 
     private void btnVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVentasActionPerformed
-        jTabbedPane1.setSelectedIndex(3);
+        
     }//GEN-LAST:event_btnVentasActionPerformed
 
     private void btnInformacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInformacionActionPerformed
-        jTabbedPane1.setSelectedIndex(4);
+        
     }//GEN-LAST:event_btnInformacionActionPerformed
 
-    private void ModificarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModificarPedidoActionPerformed
-        if (filaSeleccionada >= 0) {
-            int confirmacion = JOptionPane.showConfirmDialog(null, "Seguro de Actualizar los datos?", "Confirmar Actualizacion", JOptionPane.YES_NO_OPTION);
+    private void txtBuscarVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarVentasActionPerformed
 
-            if (confirmacion == JOptionPane.YES_OPTION) {
-                MongoCollection coleccion = database.getCollection("Pedidos");
-
-                Document filtro = new Document("_id", new ObjectId(txtCodigoPedido.getText()));
-                Document documento = new Document("$set", new Document()
-                        .append("producto", txtProductoPedido.getText())
-                        .append("cantidad", txtCantiddPedido.getText())
-                        .append("precio", txtPrecioPedido.getText())
-                        .append("total", txtStockPedido.getText()));
-                UpdateResult result = coleccion.updateOne(filtro, documento);
-                mostrarDatosTablaPedido();
-                if (result.getModifiedCount() > 0) {
-                    JOptionPane.showMessageDialog(null, "Documento actualizado correctamente");
-                } else {
-                    JOptionPane.showConfirmDialog(null, "No se encontro el documento para actualizar");
-                }
-            } else {
-                ListSelectionModel seleccionModel = tblPedido.getSelectionModel();
-                seleccionModel.clearSelection();
-                filaSeleccionada = -1;
-            }
-        } else {
-            JOptionPane.showConfirmDialog(null, "Seleccione el registro a Actualizar");
-        }
-        limpiarPedido();
-        GuardarPedido.setVisible(true);
-    }//GEN-LAST:event_ModificarPedidoActionPerformed
-
-    private void GuardarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarPedidoActionPerformed
-        MongoCollection coleccion = database.getCollection("Pedido");
-        Document documento = new Document("producto", txtCodigoPedido.getText())
-                .append("cantidad", txtCantiddPedido.getText())
-                .append("precio", txtPrecioPedido.getText())
-                .append("total", txtStockPedido.getText());
-        coleccion.insertOne(documento);
-        mostrarDatosTablaPedido();
-    }//GEN-LAST:event_GuardarPedidoActionPerformed
-
-    private void EliminarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarPedidoActionPerformed
-        if (filaSeleccionada >= 0) {
-            int confirmacion = JOptionPane.showConfirmDialog(null, "Seguro de eliminar los datos?", "Confirmacion", JOptionPane.YES_NO_OPTION);
-            if (confirmacion == JOptionPane.YES_OPTION) {
-                DefaultTableModel modeloTabla = (DefaultTableModel) tblPedido.getModel();
-                MongoCollection coleccion = database.getCollection("Pedido");
-                Document filtro = new Document("_id", new ObjectId(txtCodigoPedido.getText()));
-                DeleteResult result = coleccion.deleteOne(filtro);
-
-                if (result.getDeletedCount() > 0) {
-                    JOptionPane.showMessageDialog(null, "Registro eliminado Correctamente");
-                    modeloTabla.removeRow(filaSeleccionada);
-                } else {
-                    JOptionPane.showMessageDialog(null, "No se encontro el registro para eliminarlo");
-
-                }
-            } else {
-                ListSelectionModel seleccionModel = tblPedido.getSelectionModel();
-                seleccionModel.clearSelection();
-                filaSeleccionada = -1;
-
-            }
-            limpiarPedido();
-        } else {
-            JOptionPane.showMessageDialog(null, "Seleccione un registro para eliminar");
-        }
-    }//GEN-LAST:event_EliminarPedidoActionPerformed
-
-    private void LimpiarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LimpiarPedidoActionPerformed
-        limpiarPedido();
-    }//GEN-LAST:event_LimpiarPedidoActionPerformed
-
-    private void btnAgregarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarClienteActionPerformed
-        MongoCollection coleccion = database.getCollection("Clientes");
-        Document documento = new Document("cedula", txtCedulaCliente.getText())
-                .append("nombre", txtNombreCliente.getText())
-                .append("contacto", txtContactoCliente.getText())
-                .append("direccion", txtDireccionCliente.getText());
-        coleccion.insertOne(documento);
-        mostrarDatosTablaCliente();
-    }//GEN-LAST:event_btnAgregarClienteActionPerformed
-
-    private void btnEditarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarClienteActionPerformed
-        if (filaSeleccionada >= 0) {
-            int confirmacion = JOptionPane.showConfirmDialog(null, "Seguro de Actualizar los datos?", "Confirmar Actualizacion", JOptionPane.YES_NO_OPTION);
-
-            if (confirmacion == JOptionPane.YES_OPTION) {
-                MongoCollection coleccion = database.getCollection("Clientes");
-
-                Document filtro = new Document("_id", new ObjectId(txtID.getText()));
-                Document documento = new Document("$set", new Document()
-                        .append("cedula", txtCedulaCliente.getText())
-                        .append("nombre", txtNombreCliente.getText())
-                        .append("contacto", txtContactoCliente.getText())
-                        .append("direccion", txtDireccionCliente.getText()));
-                UpdateResult result = coleccion.updateOne(filtro, documento);
-                mostrarDatosTablaCliente();
-                if (result.getModifiedCount() > 0) {
-                    JOptionPane.showMessageDialog(null, "Documento actualizado correctamente");
-                } else {
-                    JOptionPane.showConfirmDialog(null, "No se encontro el documento para actualizar");
-                }
-            } else {
-                ListSelectionModel seleccionModel = tblCliente.getSelectionModel();
-                seleccionModel.clearSelection();
-                filaSeleccionada = -1;
-            }
-        } else {
-            JOptionPane.showConfirmDialog(null, "Seleccione el registro a Actualizar");
-        }
-        limpiarCliente();
-        btnAgregarCliente.setVisible(true);
-    }//GEN-LAST:event_btnEditarClienteActionPerformed
-
-    private void btnEliminarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarClienteActionPerformed
-        if (filaSeleccionada >= 0) {
-            int confirmacion = JOptionPane.showConfirmDialog(null, "Seguro de eliminar los datos?", "Confirmacion", JOptionPane.YES_NO_OPTION);
-            if (confirmacion == JOptionPane.YES_OPTION) {
-                DefaultTableModel modeloTabla = (DefaultTableModel) tblCliente.getModel();
-                MongoCollection coleccion = database.getCollection("Clientes");
-                Document filtro = new Document("_id", new ObjectId(txtID.getText()));
-                DeleteResult result = coleccion.deleteOne(filtro);
-
-                if (result.getDeletedCount() > 0) {
-                    JOptionPane.showMessageDialog(null, "Registro eliminado Correctamente");
-                    modeloTabla.removeRow(filaSeleccionada);
-                } else {
-                    JOptionPane.showMessageDialog(null, "No se encontro el registro para eliminarlo");
-
-                }
-            } else {
-                ListSelectionModel seleccionModel = tblCliente.getSelectionModel();
-                seleccionModel.clearSelection();
-                filaSeleccionada = -1;
-
-            }
-            limpiarCliente();
-        } else {
-            JOptionPane.showMessageDialog(null, "Seleccione un registro para eliminar");
-        }
-    }//GEN-LAST:event_btnEliminarClienteActionPerformed
-
-    private void btnLimpiarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarClienteActionPerformed
-        limpiarCliente();
-    }//GEN-LAST:event_btnLimpiarClienteActionPerformed
-
-    private void tblClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblClienteMouseClicked
-        mostrarDatosCamposClientes();
-        btnAgregarCliente.setVisible(false);
-    }//GEN-LAST:event_tblClienteMouseClicked
-
-    private void tblPedidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPedidoMouseClicked
-        mostrarDatosCamposPedido();
-        GuardarPedido.setVisible(false);
-    }//GEN-LAST:event_tblPedidoMouseClicked
-
-    private void btnAgregarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarProductoActionPerformed
-        MongoCollection coleccion = database.getCollection("Productos");
-        Document documento = new Document("producto", cmbSeleccionProducto.getSelectedItem())
-                .append("precio", txtPrecioPedido.getText())
-                .append("contacto", txtContactoCliente.getText())
-                .append("nivel", (Integer) spCantidad.getValue());
-        coleccion.insertOne(documento);
-        mostrarDatosTablaProductos();
-    }//GEN-LAST:event_btnAgregarProductoActionPerformed
-
-    private void btnModificarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarProductoActionPerformed
-        if (filaSeleccionada >= 0) {
-            int confirmacion = JOptionPane.showConfirmDialog(null, "Seguro de Actualizar los datos?", "Confirmar Actualizacion", JOptionPane.YES_NO_OPTION);
-
-            if (confirmacion == JOptionPane.YES_OPTION) {
-                MongoCollection coleccion = database.getCollection("Productos");
-
-                Document filtro = new Document("_id", new ObjectId(txtCodigoProducto.getText()));
-                Document documento = new Document("$set", new Document()
-                        .append("precio", txtPrecioPedido.getText())
-                        .append("contacto", txtContactoCliente.getText())
-                        .append("nivel", (Integer) spCantidad.getValue()));
-                UpdateResult result = coleccion.updateOne(filtro, documento);
-                mostrarDatosTablaCliente();
-                if (result.getModifiedCount() > 0) {
-                    JOptionPane.showMessageDialog(null, "Documento actualizado correctamente");
-                } else {
-                    JOptionPane.showConfirmDialog(null, "No se encontro el documento para actualizar");
-                }
-            } else {
-                ListSelectionModel seleccionModel = tblProducto.getSelectionModel();
-                seleccionModel.clearSelection();
-                filaSeleccionada = -1;
-            }
-        } else {
-            JOptionPane.showConfirmDialog(null, "Seleccione el registro a Actualizar");
-        }
-        limpiarProducto();
-        btnAgregarProducto.setVisible(true);
-    }//GEN-LAST:event_btnModificarProductoActionPerformed
-
-    private void btnEliminarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarProductoActionPerformed
-         if (filaSeleccionada >= 0) {
-            int confirmacion = JOptionPane.showConfirmDialog(null, "Seguro de eliminar los datos?", "Confirmacion", JOptionPane.YES_NO_OPTION);
-            if (confirmacion == JOptionPane.YES_OPTION) {
-                DefaultTableModel modeloTabla = (DefaultTableModel) tblProducto.getModel();
-                MongoCollection coleccion = database.getCollection("Productos");
-                Document filtro = new Document("_id", new ObjectId(txtCodigoProducto.getText()));
-                DeleteResult result = coleccion.deleteOne(filtro);
-
-                if (result.getDeletedCount() > 0) {
-                    JOptionPane.showMessageDialog(null, "Registro eliminado Correctamente");
-                    modeloTabla.removeRow(filaSeleccionada);
-                } else {
-                    JOptionPane.showMessageDialog(null, "No se encontro el registro para eliminarlo");
-
-                }
-            } else {
-                ListSelectionModel seleccionModel = tblProducto.getSelectionModel();
-                seleccionModel.clearSelection();
-                filaSeleccionada = -1;
-
-            }
-            limpiarCliente();
-        } else {
-            JOptionPane.showMessageDialog(null, "Seleccione un registro para eliminar");
-        }
-    }//GEN-LAST:event_btnEliminarProductoActionPerformed
-
-    private void btnLimpiarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarProductoActionPerformed
-       limpiarProducto();
-    }//GEN-LAST:event_btnLimpiarProductoActionPerformed
-
-    private void tblProductoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProductoMouseClicked
-        mostrarDatosCamposProducto();
-        btnAgregarProducto.setVisible(false);
-    }//GEN-LAST:event_tblProductoMouseClicked
+    }//GEN-LAST:event_txtBuscarVentasActionPerformed
 
     /**
      * @param args the command line arguments

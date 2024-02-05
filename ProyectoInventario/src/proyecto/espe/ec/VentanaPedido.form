@@ -115,7 +115,7 @@
     <Container class="javax.swing.JTabbedPane" name="jTabbedPane1">
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="150" y="120" width="660" height="380"/>
+          <AbsoluteConstraints x="150" y="110" width="660" height="380"/>
         </Constraint>
       </Constraints>
 
@@ -342,9 +342,6 @@
                       <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                     </Property>
                   </Properties>
-                  <Events>
-                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tblPedidoMouseClicked"/>
-                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -361,33 +358,21 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="AGREGAR"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="GuardarPedidoActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="ModificarPedido">
               <Properties>
                 <Property name="text" type="java.lang.String" value="MODIFICAR"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ModificarPedidoActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="EliminarPedido">
               <Properties>
                 <Property name="text" type="java.lang.String" value="ELIMINAR"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="EliminarPedidoActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="LimpiarPedido">
               <Properties>
                 <Property name="text" type="java.lang.String" value="LIMPIAR"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="LimpiarPedidoActionPerformed"/>
-              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -583,9 +568,6 @@
                       <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                     </Property>
                   </Properties>
-                  <Events>
-                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tblClienteMouseClicked"/>
-                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -595,33 +577,21 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="AGREGAR"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAgregarClienteActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnEditarCliente">
               <Properties>
                 <Property name="text" type="java.lang.String" value="MODIFICAR"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEditarClienteActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnEliminarCliente">
               <Properties>
                 <Property name="text" type="java.lang.String" value="ELIMINAR"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEliminarClienteActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnLimpiarCliente">
               <Properties>
                 <Property name="text" type="java.lang.String" value="LIMPIAR"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLimpiarClienteActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="txtID">
             </Component>
@@ -815,9 +785,6 @@
                       <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                     </Property>
                   </Properties>
-                  <Events>
-                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tblProductoMouseClicked"/>
-                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -825,33 +792,21 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="AGREGAR"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAgregarProductoActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnModificarProducto">
               <Properties>
                 <Property name="text" type="java.lang.String" value="EDITAR"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnModificarProductoActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnEliminarProducto">
               <Properties>
                 <Property name="text" type="java.lang.String" value="ELIMINAR"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEliminarProductoActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnLimpiarProducto">
               <Properties>
                 <Property name="text" type="java.lang.String" value="LIMPIAR"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLimpiarProductoActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JSpinner" name="spCantidad">
             </Component>
@@ -962,6 +917,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtBuscarVentas">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtBuscarVentasActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
