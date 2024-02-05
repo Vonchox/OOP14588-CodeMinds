@@ -36,7 +36,7 @@ public class VentanaPedido extends javax.swing.JFrame {
     private void limpiarProducto() {
         cmbSeleccionProducto.setSelectedIndex(0);
         txtPrecioProducto.setText("");
-        spCantidad.setValue(0);
+        spCantidad.setValue(1);
 
     }
 
