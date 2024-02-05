@@ -302,6 +302,11 @@ public class VentanaPedido extends javax.swing.JFrame {
                 "CÓDIGO", "PRODUCTO", "CANTIDAD", "PRECIO", "TOTAL"
             }
         ));
+        tblPedido.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblPedidoMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblPedido);
 
         jLabel7.setText("FECHA");
@@ -428,7 +433,7 @@ public class VentanaPedido extends javax.swing.JFrame {
                 .addContainerGap(42, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("tab1", jPanel2);
+        jTabbedPane1.addTab("PEDIDOS", jPanel2);
 
         jLabel10.setFont(new java.awt.Font("Serif", 3, 14)); // NOI18N
         jLabel10.setText("Cedula");
@@ -453,9 +458,14 @@ public class VentanaPedido extends javax.swing.JFrame {
 
             },
             new String [] {
-                "CEDULA", "NOMBRE", "TELEFONO", "DIRECCION"
+                "NOMBRE", "CEDULA", "TELEFONO", "DIRECCION"
             }
         ));
+        tblCliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblClienteMouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(tblCliente);
 
         btnAgregarCliente.setText("AGREGAR");
@@ -506,7 +516,7 @@ public class VentanaPedido extends javax.swing.JFrame {
                                     .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtCedulaCliente, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtNombreCliente, javax.swing.GroupLayout.Alignment.LEADING))
-                                .addGap(31, 31, 31)
+                                .addGap(18, 18, 18)
                                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(198, 198, 198)
@@ -517,7 +527,7 @@ public class VentanaPedido extends javax.swing.JFrame {
                         .addComponent(btnEliminarCliente)
                         .addGap(30, 30, 30)
                         .addComponent(btnLimpiarCliente)))
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -525,7 +535,7 @@ public class VentanaPedido extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -539,7 +549,7 @@ public class VentanaPedido extends javax.swing.JFrame {
                         .addGap(13, 13, 13)
                         .addComponent(txtContactoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(20, 20, 20)
                 .addComponent(jLabel13)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -552,7 +562,7 @@ public class VentanaPedido extends javax.swing.JFrame {
                 .addGap(15, 15, 15))
         );
 
-        jTabbedPane1.addTab("tab2", jPanel3);
+        jTabbedPane1.addTab("CLIENTE", jPanel3);
 
         jLabel14.setFont(new java.awt.Font("Segoe UI Semibold", 1, 12)); // NOI18N
         jLabel14.setText("Código");
@@ -648,7 +658,7 @@ public class VentanaPedido extends javax.swing.JFrame {
                 .addContainerGap(42, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("tab3", jPanel4);
+        jTabbedPane1.addTab("PRODUCTOS", jPanel4);
 
         tblVentas.setBackground(new java.awt.Color(255, 153, 255));
         tblVentas.setModel(new javax.swing.table.DefaultTableModel(
@@ -689,7 +699,7 @@ public class VentanaPedido extends javax.swing.JFrame {
                 .addGap(47, 47, 47))
         );
 
-        jTabbedPane1.addTab("tab4", jPanel5);
+        jTabbedPane1.addTab("VENTAS", jPanel5);
 
         jLabel19.setFont(new java.awt.Font("Segoe UI Black", 1, 24)); // NOI18N
         jLabel19.setText("EMPRESA");
@@ -776,7 +786,7 @@ public class VentanaPedido extends javax.swing.JFrame {
                 .addContainerGap(59, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("tab5", jPanel6);
+        jTabbedPane1.addTab("INFORMACION", jPanel6);
 
         getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 120, 660, 380));
 
@@ -851,7 +861,7 @@ public class VentanaPedido extends javax.swing.JFrame {
     }//GEN-LAST:event_ModificarPedidoActionPerformed
 
     private void GuardarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarPedidoActionPerformed
-        MongoCollection coleccion = database.getCollection("Registro");
+        MongoCollection coleccion = database.getCollection("Pedido");
         Document documento = new Document("producto", txtCodigoPedido.getText())
                 .append("cantidad", txtCantiddPedido.getText())
                 .append("precio", txtPrecioPedido.getText())
@@ -956,7 +966,7 @@ public class VentanaPedido extends javax.swing.JFrame {
                 filaSeleccionada = -1;
 
             }
-            limpiarPedido();
+            limpiarCliente();
         } else {
             JOptionPane.showMessageDialog(null, "Seleccione un registro para eliminar");
         }
@@ -965,6 +975,16 @@ public class VentanaPedido extends javax.swing.JFrame {
     private void btnLimpiarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarClienteActionPerformed
         limpiarCliente();
     }//GEN-LAST:event_btnLimpiarClienteActionPerformed
+
+    private void tblClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblClienteMouseClicked
+        mostrarDatosCamposClientes();
+        btnAgregarCliente.setVisible(false);
+    }//GEN-LAST:event_tblClienteMouseClicked
+
+    private void tblPedidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPedidoMouseClicked
+        mostrarDatosCamposPedido();
+        GuardarPedido.setVisible(false);
+    }//GEN-LAST:event_tblPedidoMouseClicked
 
     /**
      * @param args the command line arguments
