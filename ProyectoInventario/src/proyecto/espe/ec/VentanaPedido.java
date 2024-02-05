@@ -36,8 +36,56 @@ public class VentanaPedido extends javax.swing.JFrame {
         }
         initComponents();
         mostrarDatosTablaPedido();
+        mostrarDatosTablaCliente();
+        
     }
+    
+    public void mostrarDatosTablaCliente(){
+        DefaultTableModel modeloTabla = (DefaultTableModel) tblCliente.getModel();
+        modeloTabla.setRowCount(0);
 
+        MongoCollection<Document> collection = database.getCollection("Clientes");
+        FindIterable<Document> documents = collection.find();
+
+        for (Document document : documents) {
+            Object id = document.get("_id");
+            String cedula = document.getString("cedula");
+            String nombre = document.getString("nombre");
+            String contacto = document.getString("contacto");
+            String direccion = document.getString("direccion");
+
+            modeloTabla.addRow(new Object[]{id, cedula, nombre, contacto, direccion});
+        }
+        TableColumnModel columnModel = tblCliente.getColumnModel();
+        TableColumn columna = columnModel.getColumn(0);
+        columna.setMinWidth(0);
+        columna.setMaxWidth(0);
+    }
+     
+     private void limpiarCliente() {
+        txtCedulaCliente.setText("");
+        txtNombreCliente.setText("");
+        txtContactoCliente.setText("");
+        txtDireccionCliente.setText("");
+        
+    }
+     
+     private void mostrarDatosCamposClientes() {
+
+        filaSeleccionada = tblCliente.getSelectedRow();
+        if (filaSeleccionada == -1) {
+            return;
+        }
+        DefaultTableModel modeloTabla = (DefaultTableModel) tblCliente.getModel();
+        txtCedulaCliente.setText(modeloTabla.getValueAt(filaSeleccionada, 0).toString());
+        txtNombreCliente.setText(modeloTabla.getValueAt(filaSeleccionada, 1).toString());
+        txtContactoCliente.setText(modeloTabla.getValueAt(filaSeleccionada, 2).toString());
+        txtDireccionCliente.setText(modeloTabla.getValueAt(filaSeleccionada, 3).toString());
+        
+    }
+     
+     
+     
     public void mostrarDatosTablaPedido() {
         DefaultTableModel modeloTabla = (DefaultTableModel) tblPedido.getModel();
         modeloTabla.setRowCount(0);
@@ -128,6 +176,7 @@ public class VentanaPedido extends javax.swing.JFrame {
         btnEditarCliente = new javax.swing.JButton();
         btnEliminarCliente = new javax.swing.JButton();
         btnLimpiarCliente = new javax.swing.JButton();
+        txtID = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
         txtCodigoProducto = new javax.swing.JTextField();
@@ -410,12 +459,32 @@ public class VentanaPedido extends javax.swing.JFrame {
         jScrollPane3.setViewportView(tblCliente);
 
         btnAgregarCliente.setText("AGREGAR");
+        btnAgregarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarClienteActionPerformed(evt);
+            }
+        });
 
         btnEditarCliente.setText("MODIFICAR");
+        btnEditarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarClienteActionPerformed(evt);
+            }
+        });
 
         btnEliminarCliente.setText("ELIMINAR");
+        btnEliminarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarClienteActionPerformed(evt);
+            }
+        });
 
         btnLimpiarCliente.setText("LIMPIAR");
+        btnLimpiarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarClienteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -430,6 +499,7 @@ public class VentanaPedido extends javax.swing.JFrame {
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(txtID, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(txtContactoCliente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
                                     .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.LEADING)
@@ -452,7 +522,9 @@ public class VentanaPedido extends javax.swing.JFrame {
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(25, 25, 25)
+                .addContainerGap()
+                .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel10)
@@ -793,7 +865,7 @@ public class VentanaPedido extends javax.swing.JFrame {
             int confirmacion = JOptionPane.showConfirmDialog(null, "Seguro de eliminar los datos?", "Confirmacion", JOptionPane.YES_NO_OPTION);
             if (confirmacion == JOptionPane.YES_OPTION) {
                 DefaultTableModel modeloTabla = (DefaultTableModel) tblPedido.getModel();
-                MongoCollection coleccion = database.getCollection("Registro");
+                MongoCollection coleccion = database.getCollection("Pedido");
                 Document filtro = new Document("_id", new ObjectId(txtCodigoPedido.getText()));
                 DeleteResult result = coleccion.deleteOne(filtro);
 
@@ -819,6 +891,80 @@ public class VentanaPedido extends javax.swing.JFrame {
     private void LimpiarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LimpiarPedidoActionPerformed
         limpiarPedido();
     }//GEN-LAST:event_LimpiarPedidoActionPerformed
+
+    private void btnAgregarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarClienteActionPerformed
+        MongoCollection coleccion = database.getCollection("Clientes");
+        Document documento = new Document("cedula", txtCedulaCliente.getText())
+                .append("nombre", txtNombreCliente.getText())
+                .append("contacto", txtContactoCliente.getText())
+                .append("direccion", txtDireccionCliente.getText());
+        coleccion.insertOne(documento);
+        mostrarDatosTablaCliente();
+    }//GEN-LAST:event_btnAgregarClienteActionPerformed
+
+    private void btnEditarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarClienteActionPerformed
+         if (filaSeleccionada >= 0) {
+            int confirmacion = JOptionPane.showConfirmDialog(null, "Seguro de Actualizar los datos?", "Confirmar Actualizacion", JOptionPane.YES_NO_OPTION);
+
+            if (confirmacion == JOptionPane.YES_OPTION) {
+                MongoCollection coleccion = database.getCollection("Clientes");
+
+                Document filtro = new Document("_id", new ObjectId(txtID.getText()));
+                Document documento = new Document("$set", new Document()
+                        .append("cedula", txtCedulaCliente.getText())
+                        .append("nombre", txtNombreCliente.getText())
+                        .append("contacto", txtContactoCliente.getText())
+                        .append("direccion", txtDireccionCliente.getText()));
+                UpdateResult result = coleccion.updateOne(filtro, documento);
+                mostrarDatosTablaCliente();
+                if (result.getModifiedCount() > 0) {
+                    JOptionPane.showMessageDialog(null, "Documento actualizado correctamente");
+                } else {
+                    JOptionPane.showConfirmDialog(null, "No se encontro el documento para actualizar");
+                }
+            } else {
+                ListSelectionModel seleccionModel = tblCliente.getSelectionModel();
+                seleccionModel.clearSelection();
+                filaSeleccionada = -1;
+            }
+        } else {
+            JOptionPane.showConfirmDialog(null, "Seleccione el registro a Actualizar");
+        }
+        limpiarCliente();
+        btnAgregarCliente.setVisible(true);
+    }//GEN-LAST:event_btnEditarClienteActionPerformed
+
+    private void btnEliminarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarClienteActionPerformed
+        if (filaSeleccionada >= 0) {
+            int confirmacion = JOptionPane.showConfirmDialog(null, "Seguro de eliminar los datos?", "Confirmacion", JOptionPane.YES_NO_OPTION);
+            if (confirmacion == JOptionPane.YES_OPTION) {
+                DefaultTableModel modeloTabla = (DefaultTableModel) tblCliente.getModel();
+                MongoCollection coleccion = database.getCollection("Clientes");
+                Document filtro = new Document("_id", new ObjectId(txtID.getText()));
+                DeleteResult result = coleccion.deleteOne(filtro);
+
+                if (result.getDeletedCount() > 0) {
+                    JOptionPane.showMessageDialog(null, "Registro eliminado Correctamente");
+                    modeloTabla.removeRow(filaSeleccionada);
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se encontro el registro para eliminarlo");
+
+                }
+            } else {
+                ListSelectionModel seleccionModel = tblCliente.getSelectionModel();
+                seleccionModel.clearSelection();
+                filaSeleccionada = -1;
+
+            }
+            limpiarPedido();
+        } else {
+            JOptionPane.showMessageDialog(null, "Seleccione un registro para eliminar");
+        }
+    }//GEN-LAST:event_btnEliminarClienteActionPerformed
+
+    private void btnLimpiarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarClienteActionPerformed
+        limpiarCliente();
+    }//GEN-LAST:event_btnLimpiarClienteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -924,6 +1070,7 @@ public class VentanaPedido extends javax.swing.JFrame {
     private javax.swing.JTextField txtContactoCliente;
     private javax.swing.JTextArea txtDireccionCliente;
     private javax.swing.JTextArea txtDireccionEmpresa;
+    private javax.swing.JLabel txtID;
     private javax.swing.JTextField txtNombreCliente;
     private javax.swing.JTextField txtNombreEmpresa;
     private javax.swing.JTextField txtPrecioPedido;
