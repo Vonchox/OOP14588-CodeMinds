@@ -983,9 +983,9 @@
                                   <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
                                   <Component id="ModificarPedido" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-                                  <Component id="EliminarPedido" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btEliminarPedido" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
-                                  <Component id="LimpiarPedido" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btLimpiarPedido" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace pref="83" max="32767" attributes="0"/>
@@ -1042,9 +1042,9 @@
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="GuardarPedido" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="ModificarPedido" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="EliminarPedido" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btEliminarPedido" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="LimpiarPedido" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="btLimpiarPedido" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace pref="44" max="32767" attributes="0"/>
                       </Group>
@@ -1078,8 +1078,14 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtProductoPedido">
+                  <Properties>
+                    <Property name="editable" type="boolean" value="false"/>
+                  </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtStockPedido">
+                  <Properties>
+                    <Property name="editable" type="boolean" value="false"/>
+                  </Properties>
                 </Component>
                 <Container class="javax.swing.JScrollPane" name="jScrollPane1">
                   <AuxValues>
@@ -1136,6 +1142,9 @@
                           <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                         </Property>
                       </Properties>
+                      <Events>
+                        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tblPedidoMouseClicked"/>
+                      </Events>
                     </Component>
                   </SubComponents>
                 </Container>
@@ -1151,16 +1160,25 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="MODIFICAR"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ModificarPedidoActionPerformed"/>
+                  </Events>
                 </Component>
-                <Component class="javax.swing.JButton" name="EliminarPedido">
+                <Component class="javax.swing.JButton" name="btEliminarPedido">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="ELIMINAR"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btEliminarPedidoActionPerformed"/>
+                  </Events>
                 </Component>
-                <Component class="javax.swing.JButton" name="LimpiarPedido">
+                <Component class="javax.swing.JButton" name="btLimpiarPedido">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="LIMPIAR"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btLimpiarPedidoActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel1">
                   <Properties>
@@ -1191,6 +1209,9 @@
                   </AuxValues>
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtPrecioPedido">
+                  <Properties>
+                    <Property name="editable" type="boolean" value="false"/>
+                  </Properties>
                 </Component>
                 <Component class="javax.swing.JSpinner" name="spCantidadPedido">
                   <Events>

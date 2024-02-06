@@ -119,6 +119,7 @@ public class VentanaPedido extends javax.swing.JFrame {
         txtNombreCliente.setText(modeloTabla.getValueAt(filaSeleccionada, 1).toString());
         txtContactoCliente.setText(modeloTabla.getValueAt(filaSeleccionada, 2).toString());
         txtDireccionCliente.setText(modeloTabla.getValueAt(filaSeleccionada, 3).toString());
+       
 
     }
 
@@ -131,6 +132,33 @@ public class VentanaPedido extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Por favor, selecciona una fila para eliminar.");
         }
+    }
+    
+    public void eliminarPedido() {
+        filaSeleccionada = tblPedido.getSelectedRow();
+
+        if (filaSeleccionada != -1) {
+            dtmpedido.removeRow(filaSeleccionada);
+            limpiarPedido();
+        } else {
+            JOptionPane.showMessageDialog(null, "Por favor, selecciona una fila para eliminar.");
+        }
+    }
+
+    public void mostrarDatosPedido() {
+        filaSeleccionada = tblPedido.getSelectedRow();
+        if (filaSeleccionada == -1) {
+
+            return;
+        }
+
+        DefaultTableModel modeloTabla = (DefaultTableModel) tblPedido.getModel();
+
+        cmbClientesNombres.setSelectedItem(modeloTabla.getValueAt(filaSeleccionada, 1).toString());
+        txtProductoPedido.setText(modeloTabla.getValueAt(filaSeleccionada, 2).toString());
+        spCantidadPedido.setValue(modeloTabla.getValueAt(filaSeleccionada, 3));
+        txtPrecioPedido.setText(modeloTabla.getValueAt(filaSeleccionada, 4).toString());
+
     }
 
     void AgregarPedido() {
@@ -233,8 +261,11 @@ public class VentanaPedido extends javax.swing.JFrame {
     }
 
     private void limpiarPedido() {
+        cmbClientesNombres.setSelectedItem(0);
+        cmbCodigoPedidos.setSelectedItem(0);
 
         txtProductoPedido.setText("");
+        spCantidadPedido.setValue(0);
         txtPrecioProducto.setText("");
 
         txtStockPedido.setText("");
@@ -313,8 +344,8 @@ public class VentanaPedido extends javax.swing.JFrame {
         tblPedido = new javax.swing.JTable();
         GuardarPedido = new javax.swing.JButton();
         ModificarPedido = new javax.swing.JButton();
-        EliminarPedido = new javax.swing.JButton();
-        LimpiarPedido = new javax.swing.JButton();
+        btEliminarPedido = new javax.swing.JButton();
+        btLimpiarPedido = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         cmbClientesNombres = new javax.swing.JComboBox<>();
         cmbCodigoPedidos = new javax.swing.JComboBox<>();
@@ -862,6 +893,10 @@ public class VentanaPedido extends javax.swing.JFrame {
 
         jLabel6.setText("Stock");
 
+        txtProductoPedido.setEditable(false);
+
+        txtStockPedido.setEditable(false);
+
         tblPedido.setBackground(new java.awt.Color(122, 226, 235));
         tblPedido.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -879,6 +914,11 @@ public class VentanaPedido extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tblPedido.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblPedidoMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblPedido);
 
         GuardarPedido.setText("AGREGAR");
@@ -889,10 +929,25 @@ public class VentanaPedido extends javax.swing.JFrame {
         });
 
         ModificarPedido.setText("MODIFICAR");
+        ModificarPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ModificarPedidoActionPerformed(evt);
+            }
+        });
 
-        EliminarPedido.setText("ELIMINAR");
+        btEliminarPedido.setText("ELIMINAR");
+        btEliminarPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btEliminarPedidoActionPerformed(evt);
+            }
+        });
 
-        LimpiarPedido.setText("LIMPIAR");
+        btLimpiarPedido.setText("LIMPIAR");
+        btLimpiarPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btLimpiarPedidoActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Clientes:");
 
@@ -901,6 +956,8 @@ public class VentanaPedido extends javax.swing.JFrame {
                 cmbCodigoPedidosItemStateChanged(evt);
             }
         });
+
+        txtPrecioPedido.setEditable(false);
 
         spCantidadPedido.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
@@ -957,9 +1014,9 @@ public class VentanaPedido extends javax.swing.JFrame {
                         .addGap(38, 38, 38)
                         .addComponent(ModificarPedido)
                         .addGap(26, 26, 26)
-                        .addComponent(EliminarPedido)
+                        .addComponent(btEliminarPedido)
                         .addGap(41, 41, 41)
-                        .addComponent(LimpiarPedido)))
+                        .addComponent(btLimpiarPedido)))
                 .addContainerGap(83, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -1001,8 +1058,8 @@ public class VentanaPedido extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(GuardarPedido)
                         .addComponent(ModificarPedido)
-                        .addComponent(EliminarPedido))
-                    .addComponent(LimpiarPedido))
+                        .addComponent(btEliminarPedido))
+                    .addComponent(btLimpiarPedido))
                 .addContainerGap(44, Short.MAX_VALUE))
         );
 
@@ -1240,6 +1297,68 @@ public class VentanaPedido extends javax.swing.JFrame {
 
     }//GEN-LAST:event_spCantidadPedidoStateChanged
 
+    private void ModificarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModificarPedidoActionPerformed
+        if (filaSeleccionada >= 0) {
+            int confirmacion = JOptionPane.showConfirmDialog(null, "¿Seguro de actualizar los datos?", "Confirmar actualización", JOptionPane.YES_NO_OPTION);
+
+            if (confirmacion == JOptionPane.YES_OPTION) {
+                DefaultTableModel model = (DefaultTableModel) tblPedido.getModel();
+
+                String nuevoClientesNombres = cmbClientesNombres.getSelectedItem().toString();
+                String nuevoCodigoPedidos = cmbCodigoPedidos.getSelectedItem().toString();
+                String nuevoProducto = txtProductoPedido.getText();
+                String nuevaCantidadPedido = spCantidadPedido.getValue().toString();
+                String nuevoPrecio = txtPrecioPedido.getText();
+                String nuevaStock = txtStockPedido.getText();
+
+                String cantidad = spCantidadPedido.getValue().toString();
+                String precio = txtPrecioPedido.getText();
+                double precioPedido = Double.parseDouble(precio);
+                double total = precioPedido * Double.parseDouble(cantidad);
+                TotalPedido = String.format("%.2f", total);
+
+                model.setValueAt(nuevoClientesNombres, filaSeleccionada, 1);
+                model.setValueAt(nuevoProducto, filaSeleccionada, 2);
+                model.setValueAt(nuevaCantidadPedido, filaSeleccionada, 3);
+                model.setValueAt(nuevoPrecio, filaSeleccionada, 4);
+                model.setValueAt(TotalPedido, filaSeleccionada, 5);
+
+                JOptionPane.showMessageDialog(null, "Fila Actualizada Correctamente");
+            } else {
+
+                ListSelectionModel seleccionModel = tblPedido.getSelectionModel();
+                seleccionModel.clearSelection();
+                filaSeleccionada = -1;
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Seleccione el registro a actualizar");
+        }
+    }//GEN-LAST:event_ModificarPedidoActionPerformed
+
+    private void tblPedidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPedidoMouseClicked
+        mostrarDatosPedido();
+    }//GEN-LAST:event_tblPedidoMouseClicked
+
+    private void btEliminarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEliminarPedidoActionPerformed
+        if (filaSeleccionada >= 0) {
+            int confirmacion = JOptionPane.showConfirmDialog(null, "¿Seguro de eliminar los datos?", "Confirmar actualizacion", JOptionPane.YES_NO_OPTION);
+            if (confirmacion == JOptionPane.YES_OPTION) {
+                eliminarPedido();
+            } else {
+                ListSelectionModel seleccionModel = tblProducto.getSelectionModel();
+                seleccionModel.clearSelection();
+                filaSeleccionada = -1;
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Seleccione el registro a eliminar");
+        }
+
+    }//GEN-LAST:event_btEliminarPedidoActionPerformed
+
+    private void btLimpiarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLimpiarPedidoActionPerformed
+       limpiarPedido();
+    }//GEN-LAST:event_btLimpiarPedidoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1276,10 +1395,10 @@ public class VentanaPedido extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton EliminarPedido;
     private javax.swing.JButton GuardarPedido;
-    private javax.swing.JButton LimpiarPedido;
     private javax.swing.JButton ModificarPedido;
+    private javax.swing.JButton btEliminarPedido;
+    private javax.swing.JButton btLimpiarPedido;
     private javax.swing.JButton btnAgregarCliente;
     private javax.swing.JButton btnAgregarProducto;
     private javax.swing.JButton btnClientes;
