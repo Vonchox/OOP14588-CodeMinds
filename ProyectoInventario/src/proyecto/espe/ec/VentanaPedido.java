@@ -29,23 +29,24 @@ public class VentanaPedido extends javax.swing.JFrame {
     String spCantidadProducto;
     int filaSeleccionada = -1;
     String TotalPedido;
+    int codigoPedido = 1;
 
     DefaultTableModel dtmproducto = new DefaultTableModel();
     DefaultTableModel dtmcliente = new DefaultTableModel();
+    DefaultTableModel dtmpedido = new DefaultTableModel();
 
     public VentanaPedido() {
-        
+
         initComponents();
         initVentanaPedido();
     }
 
-    private void buscarProductoPorCodigo( String codigoSeleccionado ) {
-        
+    private void buscarProductoPorCodigo(String codigoSeleccionado) {
 
         DefaultTableModel model = (DefaultTableModel) tblProducto.getModel();
         for (int i = 0; i < model.getRowCount(); i++) {
             if (model.getValueAt(i, 0).equals(codigoSeleccionado)) {
-                
+
                 txtProductoPedido.setText(model.getValueAt(i, 1).toString());
                 txtPrecioPedido.setText(model.getValueAt(i, 2).toString());
                 txtStockPedido.setText(model.getValueAt(i, 3).toString());
@@ -53,8 +54,6 @@ public class VentanaPedido extends javax.swing.JFrame {
             }
         }
     }
-    
-    
 
     private void cargarCodigoEnComboBox(DefaultTableModel modeloTabla, int columnaCodigo) {
         DefaultComboBoxModel<String> modeloComboBox = new DefaultComboBoxModel<>();
@@ -88,6 +87,11 @@ public class VentanaPedido extends javax.swing.JFrame {
         String[] titulo_2 = new String[]{"CEDULA", "NOMBRE", "TELEFONO", "DIRECCION"};
         dtmcliente.setColumnIdentifiers(titulo_2);
         tblCliente.setModel(dtmcliente);
+
+        String[] titulo_3 = new String[]{"CODIGO", "CLIENTE", "PRODUCTO", "CANTIDAD", "PRECIO", "TOTAL"};
+        dtmpedido.setColumnIdentifiers(titulo_3);
+        tblPedido.setModel(dtmpedido);
+
     }
 
     void AgregarCliente() {
@@ -128,10 +132,29 @@ public class VentanaPedido extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Por favor, selecciona una fila para eliminar.");
         }
     }
-    
+
+    void AgregarPedido() {
+        if (validarPedido() == true) {
+            String cantidad = spCantidadPedido.getValue().toString();
+            String precio = txtPrecioPedido.getText();
+            double precioPedido = Double.parseDouble(precio);
+            double total = precioPedido * Double.parseDouble(cantidad);
+            TotalPedido = String.format("%.2f", total);
+
+            dtmpedido.addRow(new Object[]{
+                codigoPedido, cmbClientesNombres.getSelectedItem().toString(), txtProductoPedido.getText(), spCantidadPedido.getValue().toString(), txtPrecioPedido.getText(), TotalPedido
+            });
+            cargarCodigoEnComboBox(dtmproducto, 0);
+            codigoPedido += 1;
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Ingrese todos los datos");
+        }
+    }
+
     private boolean validarPedido() {
         boolean validar = false;
-        if ((cmbClientesNombres.getSelectedItem().toString().length() > 0) &&(cmbCodigoPedidos.getSelectedItem().toString().length() > 0) && (spCantidadPedido.getValue().toString().length() > 0)) {
+        if ((cmbClientesNombres.getSelectedItem().toString().length() > 0) && (cmbCodigoPedidos.getSelectedItem().toString().length() > 0) && (spCantidadPedido.getValue().toString().length() > 0)) {
             validar = true;
         }
         return validar;
@@ -213,7 +236,7 @@ public class VentanaPedido extends javax.swing.JFrame {
 
         txtProductoPedido.setText("");
         txtPrecioProducto.setText("");
-       
+
         txtStockPedido.setText("");
     }
 
@@ -879,7 +902,6 @@ public class VentanaPedido extends javax.swing.JFrame {
             }
         });
 
-        spCantidadPedido.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
         spCantidadPedido.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 spCantidadPedidoStateChanged(evt);
@@ -894,13 +916,8 @@ public class VentanaPedido extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(13, 13, 13)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(cmbCodigoPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtProductoPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(45, 45, 45))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -910,10 +927,16 @@ public class VentanaPedido extends javax.swing.JFrame {
                                         .addComponent(jLabel2)
                                         .addGap(48, 48, 48)
                                         .addComponent(jLabel3)))
-                                .addGap(26, 26, 26)))
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(spCantidadPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(26, 26, 26)
+                                .addComponent(jLabel4)
+                                .addGap(16, 16, 16))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(cmbCodigoPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtProductoPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(37, 37, 37)
+                                .addComponent(spCantidadPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(8, 8, 8)))
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(60, 60, 60)
@@ -1163,7 +1186,7 @@ public class VentanaPedido extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEditarClienteActionPerformed
 
     private void GuardarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarPedidoActionPerformed
-        // TODO add your handling code here:
+        AgregarPedido();
     }//GEN-LAST:event_GuardarPedidoActionPerformed
 
     private void txtContactoClienteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtContactoClienteKeyTyped
@@ -1214,18 +1237,7 @@ public class VentanaPedido extends javax.swing.JFrame {
     }//GEN-LAST:event_cmbCodigoPedidosItemStateChanged
 
     private void spCantidadPedidoStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spCantidadPedidoStateChanged
-        double valorCantidadPedido = (double) spCantidad.getValue();
-        double precioPedido;
-        double total;
 
-        String precio = txtPrecioPedido.getText();
-        
-        precioPedido = Double.parseDouble(precio);
-        
-        total = precioPedido * valorCantidadPedido;
-
-        TotalPedido = String.format("%.2f", total);
-       
     }//GEN-LAST:event_spCantidadPedidoStateChanged
 
     /**
