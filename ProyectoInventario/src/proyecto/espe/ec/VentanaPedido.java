@@ -93,6 +93,7 @@ public class VentanaPedido extends javax.swing.JFrame {
 
     }
     
+    
      private boolean validarCliente() {
         boolean validar = false;
         if ((txtContactoCliente.getText().length() > 0) && (txtNombreCliente.getText().length() > 0) && (txtContactoCliente.getText().length() > 0) && (txtDireccionCliente.getText().length() > 0)) {
