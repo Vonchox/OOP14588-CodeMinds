@@ -29,8 +29,21 @@ public class VentanaPedido extends javax.swing.JFrame {
     int filaSeleccionanda = -1;
 
     DefaultTableModel dtmproducto = new DefaultTableModel();
+    DefaultTableModel dtmcliente = new DefaultTableModel();
+    
+    
+    
+    public void VentanaCliente() {
+        initComponents();
+        
+        String[] titulo_2 = new String[]{"NOMBRE", "CEDULA", "TELEFONO", "DIRECCION"};
+        dtmcliente.setColumnIdentifiers(titulo_2);
+        tblCliente.setModel(dtmproducto);
 
-    public VentanaPedido() {
+    }
+    
+    
+    public void VentanaPedido() {
         initComponents();
         
         String[] titulo_1 = new String[]{"CODIGO", "PRODUCTO", "PRECIO", "STOCK"};
@@ -38,6 +51,45 @@ public class VentanaPedido extends javax.swing.JFrame {
         tblProducto.setModel(dtmproducto);
 
     }
+    void AgregarCliente() {
+        if (validarProducto() == true) {
+            dtmcliente.addRow(new Object[]{
+                txtCedulaCliente.getText(), txtNombreCliente.getText(), txtContactoCliente.getText(),txtDireccionCliente.getText()
+            });
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Ingrese todos los datos");
+        }
+    }
+
+    public void mostrarDatosClientes() {
+        filaSeleccionanda = tblCliente.getSelectedRow();
+        if (filaSeleccionanda == -1) {
+            System.out.println("hola");
+            return;
+        }
+
+        DefaultTableModel modeloTabla = (DefaultTableModel) tblCliente.getModel();
+
+        txtCedulaCliente.setText(modeloTabla.getValueAt(filaSeleccionanda, 0).toString());
+        txtNombreCliente.setText(modeloTabla.getValueAt(filaSeleccionanda, 1).toString());
+        txtContactoCliente.setText(modeloTabla.getValueAt(filaSeleccionanda, 2).toString());
+        txtDireccionCliente.setText(modeloTabla.getValueAt(filaSeleccionanda, 3).toString());
+        
+
+    }
+    
+    public void eliminarCliente(){
+        filaSeleccionanda = tblCliente.getSelectedRow();
+
+        if (filaSeleccionanda != -1) {
+            dtmcliente.removeRow(filaSeleccionanda);
+            limpiarCliente();
+        } else {
+            JOptionPane.showMessageDialog(null, "Por favor, selecciona una fila para eliminar.");
+        }
+    }
+    
 
     private boolean validarProducto() {
         boolean validar = false;
