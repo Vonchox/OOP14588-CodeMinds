@@ -109,7 +109,7 @@ public class VentanaPedido extends javax.swing.JFrame {
     public void mostrarDatosClientes() {
         filaSeleccionada = tblCliente.getSelectedRow();
         if (filaSeleccionada == -1) {
-            System.out.println("hola");
+            System.out.println("0");
             return;
         }
 
