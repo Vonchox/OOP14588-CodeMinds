@@ -491,6 +491,11 @@ public class VentanaPedido extends javax.swing.JFrame {
         jLabel17.setText("Cantidad");
 
         cmbSeleccionProducto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione...", "Mote Especial", "Mote Mediano", "Mote Grueso", "Mote Parejo", "Arbeja", "Lenteja", "Maiz" }));
+        cmbSeleccionProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbSeleccionProductoActionPerformed(evt);
+            }
+        });
 
         tblProducto.setBackground(new java.awt.Color(204, 255, 204));
         tblProducto.setModel(new javax.swing.table.DefaultTableModel(
@@ -1082,6 +1087,10 @@ public class VentanaPedido extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Ingrese solo numeros");
         }
     }//GEN-LAST:event_txtCedulaClienteKeyTyped
+
+    private void cmbSeleccionProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbSeleccionProductoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbSeleccionProductoActionPerformed
 
     /**
      * @param args the command line arguments
