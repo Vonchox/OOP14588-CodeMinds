@@ -4,6 +4,8 @@
  */
 package proyecto.espe.ec;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author PC
@@ -31,7 +33,7 @@ public class InisioSesion extends javax.swing.JFrame {
         txtCorreo = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         txtContraseña = new javax.swing.JPasswordField();
-        jButton1 = new javax.swing.JButton();
+        btnIngresar = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
 
@@ -48,10 +50,19 @@ public class InisioSesion extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(0, 102, 255));
         jLabel4.setText("CONTRASEÑA");
 
-        jButton1.setBackground(new java.awt.Color(102, 102, 255));
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(0, 0, 0));
-        jButton1.setText("INGRESAR");
+        btnIngresar.setBackground(new java.awt.Color(102, 102, 255));
+        btnIngresar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnIngresar.setText("INGRESAR");
+        btnIngresar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnIngresarMouseClicked(evt);
+            }
+        });
+        btnIngresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIngresarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -68,7 +79,7 @@ public class InisioSesion extends javax.swing.JFrame {
                             .addComponent(label)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(59, 59, 59)
-                        .addComponent(jButton1)))
+                        .addComponent(btnIngresar)))
                 .addContainerGap(46, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -83,7 +94,7 @@ public class InisioSesion extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                .addComponent(btnIngresar)
                 .addContainerGap(137, Short.MAX_VALUE))
         );
 
@@ -122,6 +133,25 @@ public class InisioSesion extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnIngresarActionPerformed
+
+    private void btnIngresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIngresarMouseClicked
+       String Usuario="mote7colinas@gmail.com";
+       String Contraseña= "1234";
+       String Password= new String(txtContraseña.getPassword());
+       if(txtCorreo.getText().equals(Usuario)&& Password.equals(Contraseña)){
+           VentanaPedido ventanaPrincipal= new VentanaPedido();
+           ventanaPrincipal.setVisible(true);
+           dispose();
+       }else{
+           JOptionPane.showMessageDialog(null, "Acceso incorrecto");
+           txtCorreo.setText("");
+           txtContraseña.setText("");
+       }
+    }//GEN-LAST:event_btnIngresarMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -159,7 +189,7 @@ public class InisioSesion extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnIngresar;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
