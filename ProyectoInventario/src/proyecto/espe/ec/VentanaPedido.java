@@ -26,35 +26,30 @@ import org.bson.types.ObjectId;
 public class VentanaPedido extends javax.swing.JFrame {
 
     String spCantidadProducto;
-    int filaSeleccionanda = -1;
+    int filaSeleccionada = -1;
 
     DefaultTableModel dtmproducto = new DefaultTableModel();
     DefaultTableModel dtmcliente = new DefaultTableModel();
-    
-    
-    
-    public void VentanaCliente() {
-        initComponents();
-        
-        String[] titulo_2 = new String[]{"NOMBRE", "CEDULA", "TELEFONO", "DIRECCION"};
-        dtmcliente.setColumnIdentifiers(titulo_2);
-        tblCliente.setModel(dtmproducto);
 
-    }
-    
-    
-    public void VentanaPedido() {
+    public VentanaPedido() {
         initComponents();
-        
+        initVentanaPedido();
+    }
+
+    public void initVentanaPedido() {
         String[] titulo_1 = new String[]{"CODIGO", "PRODUCTO", "PRECIO", "STOCK"};
         dtmproducto.setColumnIdentifiers(titulo_1);
         tblProducto.setModel(dtmproducto);
 
+        String[] titulo_2 = new String[]{"NOMBRE", "CEDULA", "TELEFONO", "DIRECCION"};
+        dtmcliente.setColumnIdentifiers(titulo_2);
+        tblCliente.setModel(dtmcliente);
     }
+
     void AgregarCliente() {
         if (validarProducto() == true) {
             dtmcliente.addRow(new Object[]{
-                txtCedulaCliente.getText(), txtNombreCliente.getText(), txtContactoCliente.getText(),txtDireccionCliente.getText()
+                txtCedulaCliente.getText(), txtNombreCliente.getText(), txtContactoCliente.getText(), txtDireccionCliente.getText()
             });
 
         } else {
@@ -63,33 +58,31 @@ public class VentanaPedido extends javax.swing.JFrame {
     }
 
     public void mostrarDatosClientes() {
-        filaSeleccionanda = tblCliente.getSelectedRow();
-        if (filaSeleccionanda == -1) {
+        filaSeleccionada = tblCliente.getSelectedRow();
+        if (filaSeleccionada == -1) {
             System.out.println("hola");
             return;
         }
 
         DefaultTableModel modeloTabla = (DefaultTableModel) tblCliente.getModel();
 
-        txtCedulaCliente.setText(modeloTabla.getValueAt(filaSeleccionanda, 0).toString());
-        txtNombreCliente.setText(modeloTabla.getValueAt(filaSeleccionanda, 1).toString());
-        txtContactoCliente.setText(modeloTabla.getValueAt(filaSeleccionanda, 2).toString());
-        txtDireccionCliente.setText(modeloTabla.getValueAt(filaSeleccionanda, 3).toString());
-        
+        txtCedulaCliente.setText(modeloTabla.getValueAt(filaSeleccionada, 0).toString());
+        txtNombreCliente.setText(modeloTabla.getValueAt(filaSeleccionada, 1).toString());
+        txtContactoCliente.setText(modeloTabla.getValueAt(filaSeleccionada, 2).toString());
+        txtDireccionCliente.setText(modeloTabla.getValueAt(filaSeleccionada, 3).toString());
 
     }
-    
-    public void eliminarCliente(){
-        filaSeleccionanda = tblCliente.getSelectedRow();
 
-        if (filaSeleccionanda != -1) {
-            dtmcliente.removeRow(filaSeleccionanda);
+    public void eliminarCliente() {
+        filaSeleccionada = tblCliente.getSelectedRow();
+
+        if (filaSeleccionada != -1) {
+            dtmcliente.removeRow(filaSeleccionada);
             limpiarCliente();
         } else {
             JOptionPane.showMessageDialog(null, "Por favor, selecciona una fila para eliminar.");
         }
     }
-    
 
     private boolean validarProducto() {
         boolean validar = false;
@@ -112,26 +105,26 @@ public class VentanaPedido extends javax.swing.JFrame {
     }
 
     public void mostrarDatosProducto() {
-        filaSeleccionanda = tblProducto.getSelectedRow();
-        if (filaSeleccionanda == -1) {
+        filaSeleccionada = tblProducto.getSelectedRow();
+        if (filaSeleccionada == -1) {
             System.out.println("hola");
             return;
         }
 
         DefaultTableModel modeloTabla = (DefaultTableModel) tblProducto.getModel();
 
-        txtCodigoProducto.setText(modeloTabla.getValueAt(filaSeleccionanda, 0).toString());
-        cmbSeleccionProducto.setSelectedItem(modeloTabla.getValueAt(filaSeleccionanda, 1).toString());
-        txtPrecioProducto.setText(modeloTabla.getValueAt(filaSeleccionanda, 2).toString());
-        spCantidad.setValue(modeloTabla.getValueAt(filaSeleccionanda, 3));
+        txtCodigoProducto.setText(modeloTabla.getValueAt(filaSeleccionada, 0).toString());
+        cmbSeleccionProducto.setSelectedItem(modeloTabla.getValueAt(filaSeleccionada, 1).toString());
+        txtPrecioProducto.setText(modeloTabla.getValueAt(filaSeleccionada, 2).toString());
+        spCantidad.setValue(modeloTabla.getValueAt(filaSeleccionada, 3));
 
     }
-    
-    public void eliminarProducto(){
-        filaSeleccionanda = tblProducto.getSelectedRow();
 
-        if (filaSeleccionanda != -1) {
-            dtmproducto.removeRow(filaSeleccionanda);
+    public void eliminarProducto() {
+        filaSeleccionada = tblProducto.getSelectedRow();
+
+        if (filaSeleccionada != -1) {
+            dtmproducto.removeRow(filaSeleccionada);
             limpiarProducto();
         } else {
             JOptionPane.showMessageDialog(null, "Por favor, selecciona una fila para eliminar.");
@@ -151,7 +144,6 @@ public class VentanaPedido extends javax.swing.JFrame {
         txtNombreCliente.setText("");
         txtContactoCliente.setText("");
         txtDireccionCliente.setText("");
-
     }
 
     private void limpiarPedido() {
@@ -743,8 +735,12 @@ public class VentanaPedido extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tblPedido);
 
-        GuardarPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/agregar-usuario.png"))); // NOI18N
         GuardarPedido.setText("AGREGAR");
+        GuardarPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GuardarPedidoActionPerformed(evt);
+            }
+        });
 
         ModificarPedido.setText("MODIFICAR");
 
@@ -831,7 +827,7 @@ public class VentanaPedido extends javax.swing.JFrame {
                         .addComponent(ModificarPedido)
                         .addComponent(EliminarPedido))
                     .addComponent(LimpiarPedido))
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("PEDIDOS", jPanel2);
@@ -908,7 +904,7 @@ public class VentanaPedido extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAgregarProductoActionPerformed
 
     private void btnModificarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarProductoActionPerformed
-        if (filaSeleccionanda >= 0) {
+        if (filaSeleccionada >= 0) {
             int confirmacion = JOptionPane.showConfirmDialog(null, "¿Seguro de actualizar los datos?", "Confirmar actualizacion", JOptionPane.YES_NO_OPTION);
             if (confirmacion == JOptionPane.YES_OPTION) {
                 DefaultTableModel model = (DefaultTableModel) tblProducto.getModel();
@@ -918,16 +914,16 @@ public class VentanaPedido extends javax.swing.JFrame {
                 String nuevoPrecio = txtPrecioProducto.getText();
                 int nuevoCantidad = (Integer) spCantidad.getValue();
 
-                model.setValueAt(nuevoCodigo, filaSeleccionanda, 0);
-                model.setValueAt(nuevaProducto, filaSeleccionanda, 1);
-                model.setValueAt(nuevoPrecio, filaSeleccionanda, 2);
-                model.setValueAt(nuevoCantidad, filaSeleccionanda, 3);
+                model.setValueAt(nuevoCodigo, filaSeleccionada, 0);
+                model.setValueAt(nuevaProducto, filaSeleccionada, 1);
+                model.setValueAt(nuevoPrecio, filaSeleccionada, 2);
+                model.setValueAt(nuevoCantidad, filaSeleccionada, 3);
 
                 JOptionPane.showMessageDialog(null, "Fila Actualizada Correctamente");
             } else {
                 ListSelectionModel seleccionModel = tblProducto.getSelectionModel();
                 seleccionModel.clearSelection();
-                filaSeleccionanda = -1;
+                filaSeleccionada = -1;
             }
         } else {
             JOptionPane.showMessageDialog(null, "Seleccione el registro a actualizar");
@@ -937,18 +933,18 @@ public class VentanaPedido extends javax.swing.JFrame {
 
     private void tblProductoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProductoMouseClicked
         mostrarDatosProducto();
-        
+
     }//GEN-LAST:event_tblProductoMouseClicked
 
     private void btnEliminarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarProductoActionPerformed
-         if (filaSeleccionanda >= 0) {
+        if (filaSeleccionada >= 0) {
             int confirmacion = JOptionPane.showConfirmDialog(null, "¿Seguro de eliminar los datos?", "Confirmar actualizacion", JOptionPane.YES_NO_OPTION);
             if (confirmacion == JOptionPane.YES_OPTION) {
                 eliminarProducto();
             } else {
                 ListSelectionModel seleccionModel = tblProducto.getSelectionModel();
                 seleccionModel.clearSelection();
-                filaSeleccionanda = -1;
+                filaSeleccionada = -1;
             }
         } else {
             JOptionPane.showMessageDialog(null, "Seleccione el registro a eliminar");
@@ -969,14 +965,14 @@ public class VentanaPedido extends javax.swing.JFrame {
     }//GEN-LAST:event_tblClienteMouseClicked
 
     private void btnEliminarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarClienteActionPerformed
-         if (filaSeleccionanda >= 0) {
+        if (filaSeleccionada >= 0) {
             int confirmacion = JOptionPane.showConfirmDialog(null, "¿Seguro de eliminar los datos?", "Confirmar actualizacion", JOptionPane.YES_NO_OPTION);
             if (confirmacion == JOptionPane.YES_OPTION) {
                 eliminarCliente();
             } else {
                 ListSelectionModel seleccionModel = tblProducto.getSelectionModel();
                 seleccionModel.clearSelection();
-                filaSeleccionanda = -1;
+                filaSeleccionada = -1;
             }
         } else {
             JOptionPane.showMessageDialog(null, "Seleccione el registro a eliminar");
@@ -984,11 +980,11 @@ public class VentanaPedido extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEliminarClienteActionPerformed
 
     private void btnLimpiarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarClienteActionPerformed
-       limpiarCliente();
+        limpiarCliente();
     }//GEN-LAST:event_btnLimpiarClienteActionPerformed
 
     private void btnEditarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarClienteActionPerformed
-        if (filaSeleccionanda >= 0) {
+        if (filaSeleccionada >= 0) {
             int confirmacion = JOptionPane.showConfirmDialog(null, "¿Seguro de actualizar los datos?", "Confirmar actualizacion", JOptionPane.YES_NO_OPTION);
             if (confirmacion == JOptionPane.YES_OPTION) {
                 DefaultTableModel model = (DefaultTableModel) tblCliente.getModel();
@@ -997,23 +993,26 @@ public class VentanaPedido extends javax.swing.JFrame {
                 String nuevoNombre = txtNombreCliente.getText();
                 String nuevoContacto = txtContactoCliente.getText();
                 String nuevaDireccion = txtDireccionCliente.getText();
-                
 
-                model.setValueAt(nuevaCedula, filaSeleccionanda, 0);
-                model.setValueAt(nuevoNombre, filaSeleccionanda, 1);
-                model.setValueAt(nuevoContacto, filaSeleccionanda, 2);
-                model.setValueAt(nuevaDireccion, filaSeleccionanda, 3);
+                model.setValueAt(nuevaCedula, filaSeleccionada, 0);
+                model.setValueAt(nuevoNombre, filaSeleccionada, 1);
+                model.setValueAt(nuevoContacto, filaSeleccionada, 2);
+                model.setValueAt(nuevaDireccion, filaSeleccionada, 3);
 
                 JOptionPane.showMessageDialog(null, "Fila Actualizada Correctamente");
             } else {
                 ListSelectionModel seleccionModel = tblCliente.getSelectionModel();
                 seleccionModel.clearSelection();
-                filaSeleccionanda = -1;
+                filaSeleccionada = -1;
             }
         } else {
             JOptionPane.showMessageDialog(null, "Seleccione el registro a actualizar");
         }
     }//GEN-LAST:event_btnEditarClienteActionPerformed
+
+    private void GuardarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarPedidoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_GuardarPedidoActionPerformed
 
     /**
      * @param args the command line arguments
