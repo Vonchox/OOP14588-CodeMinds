@@ -266,7 +266,7 @@ public class VentanaPedido extends javax.swing.JFrame {
 
         txtProductoPedido.setText("");
         spCantidadPedido.setValue(0);
-        txtPrecioProducto.setText("");
+        txtPrecioPedido.setText("");
 
         txtStockPedido.setText("");
     }
