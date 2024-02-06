@@ -11,6 +11,7 @@ import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.UpdateResult;
 import java.util.Date;
+import java.util.UUID;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
@@ -34,6 +35,7 @@ public class VentanaPedido extends javax.swing.JFrame {
     DefaultTableModel dtmproducto = new DefaultTableModel();
     DefaultTableModel dtmcliente = new DefaultTableModel();
     DefaultTableModel dtmpedido = new DefaultTableModel();
+    DefaultTableModel dtmventas = new DefaultTableModel();
 
     public VentanaPedido() {
 
@@ -80,7 +82,7 @@ public class VentanaPedido extends javax.swing.JFrame {
     }
 
     public void initVentanaPedido() {
-        String[] titulo_1 = new String[]{"CODIGO", "PRODUCTO", "PRECIO", "STOCK"};
+        String[] titulo_1 = new String[]{"CODIGO", "PRODUCTO", "PRECIO", "CANTIDAD"};
         dtmproducto.setColumnIdentifiers(titulo_1);
         tblProducto.setModel(dtmproducto);
 
@@ -91,6 +93,10 @@ public class VentanaPedido extends javax.swing.JFrame {
         String[] titulo_3 = new String[]{"CODIGO", "CLIENTE", "PRODUCTO", "CANTIDAD", "PRECIO", "TOTAL"};
         dtmpedido.setColumnIdentifiers(titulo_3);
         tblPedido.setModel(dtmpedido);
+
+        String[] titulo_4 = new String[]{"ID", "CLIENTE", "PRODUCTO", "CANTIDAD", "TOTAL"};
+        dtmventas.setColumnIdentifiers(titulo_4);
+        tblVentas.setModel(dtmventas);
 
     }
 
@@ -109,7 +115,7 @@ public class VentanaPedido extends javax.swing.JFrame {
     public void mostrarDatosClientes() {
         filaSeleccionada = tblCliente.getSelectedRow();
         if (filaSeleccionada == -1) {
-            
+
             return;
         }
 
@@ -119,7 +125,6 @@ public class VentanaPedido extends javax.swing.JFrame {
         txtNombreCliente.setText(modeloTabla.getValueAt(filaSeleccionada, 1).toString());
         txtContactoCliente.setText(modeloTabla.getValueAt(filaSeleccionada, 2).toString());
         txtDireccionCliente.setText(modeloTabla.getValueAt(filaSeleccionada, 3).toString());
-       
 
     }
 
@@ -133,7 +138,7 @@ public class VentanaPedido extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Por favor, selecciona una fila para eliminar.");
         }
     }
-    
+
     public void eliminarPedido() {
         filaSeleccionada = tblPedido.getSelectedRow();
 
@@ -142,6 +147,46 @@ public class VentanaPedido extends javax.swing.JFrame {
             limpiarPedido();
         } else {
             JOptionPane.showMessageDialog(null, "Por favor, selecciona una fila para eliminar.");
+        }
+    }
+
+    private static String generarIDEAleatorio() {
+        return UUID.randomUUID().toString();
+    }
+
+    public void mostrarDatosVentas() {
+        filaSeleccionada = tblVentas.getSelectedRow();
+        if (filaSeleccionada == -1) {
+
+            return;
+        }
+
+        DefaultTableModel modeloTabla = (DefaultTableModel) tblVentas.getModel();
+        String IDAleatorio = generarIDEAleatorio();
+        modeloTabla.setValueAt(IDAleatorio, filaSeleccionada, 1);
+        txtNombreCliente.setText(modeloTabla.getValueAt(filaSeleccionada, 2).toString());
+        cmbSeleccionProducto.setSelectedItem(modeloTabla.getValueAt(filaSeleccionada, 3).toString());
+        spCantidad.setValue(modeloTabla.getValueAt(filaSeleccionada, 4));
+        txtPrecioPedido.setText(modeloTabla.getValueAt(filaSeleccionada, 5).toString());
+
+    }
+
+    public void buscarPedidosPorNombre(String nombreCliente) {
+        DefaultTableModel modeloTabla = (DefaultTableModel) tblVentas.getModel();
+        boolean encontrado = false;
+
+        for (int i = 0; i < modeloTabla.getRowCount(); i++) {
+            String nombreEnTabla = modeloTabla.getValueAt(i, 2).toString();
+            if (nombreEnTabla.equalsIgnoreCase(nombreCliente)) {
+                tblVentas.setRowSelectionInterval(i, i);
+                mostrarDatosVentas();
+                encontrado = true;
+                break;
+            }
+        }
+
+        if (!encontrado) {
+            JOptionPane.showMessageDialog(null, "No se encontraron pedidos para el cliente con nombre: " + nombreCliente);
         }
     }
 
@@ -424,6 +469,12 @@ public class VentanaPedido extends javax.swing.JFrame {
 
         jPanel7.setBackground(new java.awt.Color(153, 102, 255));
 
+        jTabbedPane1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTabbedPane1MouseClicked(evt);
+            }
+        });
+
         jLabel10.setFont(new java.awt.Font("Serif", 3, 14)); // NOI18N
         jLabel10.setText("Cedula");
 
@@ -587,6 +638,11 @@ public class VentanaPedido extends javax.swing.JFrame {
         jLabel14.setFont(new java.awt.Font("Segoe UI Semibold", 1, 12)); // NOI18N
         jLabel14.setText("Código");
 
+        txtCodigoProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCodigoProductoActionPerformed(evt);
+            }
+        });
         txtCodigoProducto.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtCodigoProductoKeyTyped(evt);
@@ -621,7 +677,7 @@ public class VentanaPedido extends javax.swing.JFrame {
 
             },
             new String [] {
-                "CODIGO", "PRODUCTO", "PRECIO", "STOCK"
+                "CODIGO", "PRODUCTO", "PRECIO", "CANTIDAD"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -894,6 +950,11 @@ public class VentanaPedido extends javax.swing.JFrame {
         jLabel6.setText("Stock");
 
         txtProductoPedido.setEditable(false);
+        txtProductoPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtProductoPedidoActionPerformed(evt);
+            }
+        });
 
         txtStockPedido.setEditable(false);
 
@@ -950,6 +1011,12 @@ public class VentanaPedido extends javax.swing.JFrame {
         });
 
         jLabel1.setText("Clientes:");
+
+        cmbClientesNombres.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbClientesNombresActionPerformed(evt);
+            }
+        });
 
         cmbCodigoPedidos.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -1098,7 +1165,7 @@ public class VentanaPedido extends javax.swing.JFrame {
     }//GEN-LAST:event_btnProductosActionPerformed
 
     private void btnVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVentasActionPerformed
-
+        mostrarDatosVentas();
     }//GEN-LAST:event_btnVentasActionPerformed
 
     private void btnInformacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInformacionActionPerformed
@@ -1106,7 +1173,13 @@ public class VentanaPedido extends javax.swing.JFrame {
     }//GEN-LAST:event_btnInformacionActionPerformed
 
     private void txtBuscarVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarVentasActionPerformed
+        String nombreCliente = txtBuscarVentas.getText();
 
+        if (!nombreCliente.isEmpty()) {
+            buscarPedidosPorNombre(nombreCliente);
+        } else {
+            JOptionPane.showMessageDialog(null, "Ingrese un nombre para buscar pedidos.");
+        }
     }//GEN-LAST:event_txtBuscarVentasActionPerformed
 
     private void txtCodigoProductoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoProductoKeyTyped
@@ -1248,10 +1321,10 @@ public class VentanaPedido extends javax.swing.JFrame {
 
     private void txtContactoClienteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtContactoClienteKeyTyped
         char validacionTelefono = evt.getKeyChar();
-        if (Character.isLetter(validacionTelefono)) {
+        if (!Character.isDigit(validacionTelefono) || txtContactoCliente.getText().length() >= 10) {
             getToolkit().beep();
             evt.consume();
-            JOptionPane.showMessageDialog(null, "Ingrese solo digitos");
+            JOptionPane.showMessageDialog(null, "Ingrese solo números (el campo permite 10 digitos)");
         }
     }//GEN-LAST:event_txtContactoClienteKeyTyped
 
@@ -1277,10 +1350,10 @@ public class VentanaPedido extends javax.swing.JFrame {
 
     private void txtCedulaClienteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCedulaClienteKeyTyped
         char validarCedula = evt.getKeyChar();
-        if (Character.isLetter(validarCedula)) {
+        if (!Character.isDigit(validarCedula) || txtCedulaCliente.getText().length() >= 10) {
             getToolkit().beep();
             evt.consume();
-            JOptionPane.showMessageDialog(null, "Ingrese solo numeros");
+            JOptionPane.showMessageDialog(null, "Ingrese solo números (el campo permite 10 digitos)");
         }
     }//GEN-LAST:event_txtCedulaClienteKeyTyped
 
@@ -1345,7 +1418,7 @@ public class VentanaPedido extends javax.swing.JFrame {
             if (confirmacion == JOptionPane.YES_OPTION) {
                 eliminarPedido();
             } else {
-                ListSelectionModel seleccionModel = tblProducto.getSelectionModel();
+                ListSelectionModel seleccionModel = tblPedido.getSelectionModel();
                 seleccionModel.clearSelection();
                 filaSeleccionada = -1;
             }
@@ -1356,8 +1429,24 @@ public class VentanaPedido extends javax.swing.JFrame {
     }//GEN-LAST:event_btEliminarPedidoActionPerformed
 
     private void btLimpiarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLimpiarPedidoActionPerformed
-       limpiarPedido();
+        limpiarPedido();
     }//GEN-LAST:event_btLimpiarPedidoActionPerformed
+
+    private void txtProductoPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtProductoPedidoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtProductoPedidoActionPerformed
+
+    private void txtCodigoProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoProductoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCodigoProductoActionPerformed
+
+    private void cmbClientesNombresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbClientesNombresActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbClientesNombresActionPerformed
+
+    private void jTabbedPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MouseClicked
+        mostrarDatosVentas();
+    }//GEN-LAST:event_jTabbedPane1MouseClicked
 
     /**
      * @param args the command line arguments
