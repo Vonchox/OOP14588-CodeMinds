@@ -41,13 +41,13 @@ public class VentanaPedido extends javax.swing.JFrame {
         dtmproducto.setColumnIdentifiers(titulo_1);
         tblProducto.setModel(dtmproducto);
 
-        String[] titulo_2 = new String[]{"NOMBRE", "CEDULA", "TELEFONO", "DIRECCION"};
+        String[] titulo_2 = new String[]{"CEDULA", "NOMBRE", "TELEFONO", "DIRECCION"};
         dtmcliente.setColumnIdentifiers(titulo_2);
         tblCliente.setModel(dtmcliente);
     }
 
     void AgregarCliente() {
-        if (validarProducto() == true) {
+        if (validarCliente()== true) {
             dtmcliente.addRow(new Object[]{
                 txtCedulaCliente.getText(), txtNombreCliente.getText(), txtContactoCliente.getText(), txtDireccionCliente.getText()
             });
@@ -87,6 +87,15 @@ public class VentanaPedido extends javax.swing.JFrame {
     private boolean validarProducto() {
         boolean validar = false;
         if ((cmbSeleccionProducto.getSelectedItem().toString().length() > 0) && (txtCodigoProducto.getText().length() > 0) && (txtPrecioProducto.getText().length() > 0) && (spCantidadProducto.length() > 0)) {
+            validar = true;
+        }
+        return validar;
+
+    }
+    
+     private boolean validarCliente() {
+        boolean validar = false;
+        if ((txtContactoCliente.getText().length() > 0) && (txtNombreCliente.getText().length() > 0) && (txtContactoCliente.getText().length() > 0) && (txtDireccionCliente.getText().length() > 0)) {
             validar = true;
         }
         return validar;
@@ -311,14 +320,31 @@ public class VentanaPedido extends javax.swing.JFrame {
         jLabel11.setFont(new java.awt.Font("Serif", 3, 14)); // NOI18N
         jLabel11.setText("Nombre");
 
+        txtNombreCliente.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreClienteKeyTyped(evt);
+            }
+        });
+
         jLabel12.setFont(new java.awt.Font("Serif", 3, 14)); // NOI18N
         jLabel12.setText("Contacto");
+
+        txtContactoCliente.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtContactoClienteKeyTyped(evt);
+            }
+        });
 
         jLabel13.setFont(new java.awt.Font("Serif", 3, 14)); // NOI18N
         jLabel13.setText("Dirección");
 
         txtDireccionCliente.setColumns(20);
         txtDireccionCliente.setRows(5);
+        txtDireccionCliente.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDireccionClienteKeyTyped(evt);
+            }
+        });
         jScrollPane2.setViewportView(txtDireccionCliente);
 
         tblCliente.setBackground(new java.awt.Color(102, 102, 255));
@@ -337,6 +363,12 @@ public class VentanaPedido extends javax.swing.JFrame {
             }
         });
         jScrollPane3.setViewportView(tblCliente);
+
+        txtCedulaCliente.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCedulaClienteKeyTyped(evt);
+            }
+        });
 
         btnAgregarCliente.setText("AGREGAR");
         btnAgregarCliente.addActionListener(new java.awt.event.ActionListener() {
@@ -933,7 +965,6 @@ public class VentanaPedido extends javax.swing.JFrame {
 
     private void tblProductoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProductoMouseClicked
         mostrarDatosProducto();
-
     }//GEN-LAST:event_tblProductoMouseClicked
 
     private void btnEliminarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarProductoActionPerformed
@@ -1013,6 +1044,44 @@ public class VentanaPedido extends javax.swing.JFrame {
     private void GuardarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarPedidoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_GuardarPedidoActionPerformed
+
+    private void txtContactoClienteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtContactoClienteKeyTyped
+       char validacionTelefono = evt.getKeyChar();
+        if (Character.isLetter(validacionTelefono)) {
+            getToolkit().beep();
+            evt.consume();
+            JOptionPane.showMessageDialog(null, "Ingrese solo digitos");
+        }
+    }//GEN-LAST:event_txtContactoClienteKeyTyped
+
+    private void txtNombreClienteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreClienteKeyTyped
+        char validacionApellido = evt.getKeyChar();
+        if (Character.isDigit(validacionApellido)) {
+            getToolkit().beep();
+            evt.consume();
+            JOptionPane.showMessageDialog(null, "Ingrese solo letras");
+
+        }
+    }//GEN-LAST:event_txtNombreClienteKeyTyped
+
+    private void txtDireccionClienteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDireccionClienteKeyTyped
+        char validacionApellido = evt.getKeyChar();
+        if (Character.isDigit(validacionApellido)) {
+            getToolkit().beep();
+            evt.consume();
+            JOptionPane.showMessageDialog(null, "Ingrese solo letras");
+
+        }
+    }//GEN-LAST:event_txtDireccionClienteKeyTyped
+
+    private void txtCedulaClienteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCedulaClienteKeyTyped
+        char validarCedula = evt.getKeyChar();
+        if (Character.isLetter(validarCedula)) {
+            getToolkit().beep();
+            evt.consume();
+            JOptionPane.showMessageDialog(null, "Ingrese solo numeros");
+        }
+    }//GEN-LAST:event_txtCedulaClienteKeyTyped
 
     /**
      * @param args the command line arguments
