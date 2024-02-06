@@ -339,15 +339,40 @@ public class VentanaPedido extends javax.swing.JFrame {
                 "NOMBRE", "CEDULA", "TELEFONO", "DIRECCION"
             }
         ));
+        tblCliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblClienteMouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(tblCliente);
 
         btnAgregarCliente.setText("AGREGAR");
+        btnAgregarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarClienteActionPerformed(evt);
+            }
+        });
 
         btnEditarCliente.setText("MODIFICAR");
+        btnEditarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarClienteActionPerformed(evt);
+            }
+        });
 
         btnEliminarCliente.setText("ELIMINAR");
+        btnEliminarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarClienteActionPerformed(evt);
+            }
+        });
 
         btnLimpiarCliente.setText("LIMPIAR");
+        btnLimpiarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarClienteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -762,17 +787,16 @@ public class VentanaPedido extends javax.swing.JFrame {
                                 .addComponent(txtStockPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(17, 17, 17)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 560, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(83, Short.MAX_VALUE))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(37, 37, 37)
-                .addComponent(GuardarPedido)
-                .addGap(38, 38, 38)
-                .addComponent(ModificarPedido)
-                .addGap(26, 26, 26)
-                .addComponent(EliminarPedido)
-                .addGap(41, 41, 41)
-                .addComponent(LimpiarPedido)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 560, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(37, 37, 37)
+                        .addComponent(GuardarPedido)
+                        .addGap(38, 38, 38)
+                        .addComponent(ModificarPedido)
+                        .addGap(26, 26, 26)
+                        .addComponent(EliminarPedido)
+                        .addGap(41, 41, 41)
+                        .addComponent(LimpiarPedido)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -935,6 +959,61 @@ public class VentanaPedido extends javax.swing.JFrame {
     private void btnLimpiarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarProductoActionPerformed
         limpiarProducto();
     }//GEN-LAST:event_btnLimpiarProductoActionPerformed
+
+    private void btnAgregarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarClienteActionPerformed
+        AgregarCliente();
+    }//GEN-LAST:event_btnAgregarClienteActionPerformed
+
+    private void tblClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblClienteMouseClicked
+        mostrarDatosClientes();
+    }//GEN-LAST:event_tblClienteMouseClicked
+
+    private void btnEliminarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarClienteActionPerformed
+         if (filaSeleccionanda >= 0) {
+            int confirmacion = JOptionPane.showConfirmDialog(null, "¿Seguro de eliminar los datos?", "Confirmar actualizacion", JOptionPane.YES_NO_OPTION);
+            if (confirmacion == JOptionPane.YES_OPTION) {
+                eliminarCliente();
+            } else {
+                ListSelectionModel seleccionModel = tblProducto.getSelectionModel();
+                seleccionModel.clearSelection();
+                filaSeleccionanda = -1;
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Seleccione el registro a eliminar");
+        }
+    }//GEN-LAST:event_btnEliminarClienteActionPerformed
+
+    private void btnLimpiarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarClienteActionPerformed
+       limpiarCliente();
+    }//GEN-LAST:event_btnLimpiarClienteActionPerformed
+
+    private void btnEditarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarClienteActionPerformed
+        if (filaSeleccionanda >= 0) {
+            int confirmacion = JOptionPane.showConfirmDialog(null, "¿Seguro de actualizar los datos?", "Confirmar actualizacion", JOptionPane.YES_NO_OPTION);
+            if (confirmacion == JOptionPane.YES_OPTION) {
+                DefaultTableModel model = (DefaultTableModel) tblCliente.getModel();
+
+                String nuevaCedula = txtCedulaCliente.getText();
+                String nuevoNombre = txtNombreCliente.getText();
+                String nuevoContacto = txtContactoCliente.getText();
+                String nuevaDireccion = txtDireccionCliente.getText();
+                
+
+                model.setValueAt(nuevaCedula, filaSeleccionanda, 0);
+                model.setValueAt(nuevoNombre, filaSeleccionanda, 1);
+                model.setValueAt(nuevoContacto, filaSeleccionanda, 2);
+                model.setValueAt(nuevaDireccion, filaSeleccionanda, 3);
+
+                JOptionPane.showMessageDialog(null, "Fila Actualizada Correctamente");
+            } else {
+                ListSelectionModel seleccionModel = tblCliente.getSelectionModel();
+                seleccionModel.clearSelection();
+                filaSeleccionanda = -1;
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Seleccione el registro a actualizar");
+        }
+    }//GEN-LAST:event_btnEditarClienteActionPerformed
 
     /**
      * @param args the command line arguments
