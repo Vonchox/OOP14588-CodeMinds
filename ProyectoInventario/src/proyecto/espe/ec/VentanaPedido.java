@@ -4,12 +4,7 @@
  */
 package proyecto.espe.ec;
 
-import com.mongodb.DB;
-import com.mongodb.client.FindIterable;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
-import com.mongodb.client.result.DeleteResult;
-import com.mongodb.client.result.UpdateResult;
+
 import java.util.Date;
 import java.util.UUID;
 import javax.swing.DefaultComboBoxModel;
@@ -18,8 +13,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
-import org.bson.Document;
-import org.bson.types.ObjectId;
+
 
 /**
  *
@@ -791,7 +785,7 @@ public class VentanaPedido extends javax.swing.JFrame {
                     .addComponent(btnModificarProducto)
                     .addComponent(btnEliminarProducto)
                     .addComponent(btnLimpiarProducto))
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("PRODUCTOS", jPanel4);
@@ -844,7 +838,7 @@ public class VentanaPedido extends javax.swing.JFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel18)
                     .addComponent(txtBuscarVentas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(47, 47, 47))
         );
@@ -934,7 +928,7 @@ public class VentanaPedido extends javax.swing.JFrame {
                         .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(6, 6, 6))
                     .addComponent(btnModificarEmpresa))
-                .addContainerGap(64, Short.MAX_VALUE))
+                .addContainerGap(55, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("INFORMACION", jPanel6);
@@ -1127,7 +1121,7 @@ public class VentanaPedido extends javax.swing.JFrame {
                         .addComponent(ModificarPedido)
                         .addComponent(btEliminarPedido))
                     .addComponent(btLimpiarPedido))
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("PEDIDOS", jPanel2);
