@@ -4,6 +4,11 @@
  */
 package proyecto.espe.vistaCliente;
 
+import java.awt.Graphics;
+import java.awt.Image;
+import javax.swing.ImageIcon;
+import javax.swing.JPanel;
+
 /**
  *
  * @author PC
@@ -13,7 +18,10 @@ public class ConsultarCliente extends javax.swing.JFrame {
     /**
      * Creates new form ConsultarCliente
      */
+    
+    FondoPanel fondo2= new FondoPanel();
     public ConsultarCliente() {
+        this.setContentPane(fondo2);
         initComponents();
     }
 
@@ -39,6 +47,7 @@ public class ConsultarCliente extends javax.swing.JFrame {
 
         btnBuscarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/lupa.png"))); // NOI18N
 
+        tblDatosCliente.setBackground(new java.awt.Color(153, 204, 255));
         tblDatosCliente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -50,15 +59,21 @@ public class ConsultarCliente extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tblDatosCliente);
 
         jLabel1.setFont(new java.awt.Font("Stencil", 1, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(102, 153, 255));
+        jLabel1.setForeground(new java.awt.Color(0, 51, 153));
         jLabel1.setText("CLIENTES REGISTRADOS ");
 
         btnRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/atras (1).png"))); // NOI18N
 
+        btnModificarCliente.setBackground(new java.awt.Color(95, 245, 232));
         btnModificarCliente.setFont(new java.awt.Font("Segoe UI Emoji", 1, 12)); // NOI18N
+        btnModificarCliente.setForeground(new java.awt.Color(0, 0, 0));
+        btnModificarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/editar.png"))); // NOI18N
         btnModificarCliente.setText("MODIFICAR");
 
+        btnEliminarCliente.setBackground(new java.awt.Color(95, 245, 232));
         btnEliminarCliente.setFont(new java.awt.Font("Segoe UI Emoji", 1, 12)); // NOI18N
+        btnEliminarCliente.setForeground(new java.awt.Color(0, 0, 0));
+        btnEliminarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/boton-eliminar.png"))); // NOI18N
         btnEliminarCliente.setText("ELIMINAR");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -70,7 +85,7 @@ public class ConsultarCliente extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(29, 29, 29)
                         .addComponent(btnRegresar)
-                        .addGap(106, 106, 106)
+                        .addGap(69, 69, 69)
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(21, 21, 21)
@@ -90,13 +105,14 @@ public class ConsultarCliente extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnRegresar)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(13, 13, 13)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnRegresar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
                         .addComponent(jLabel1)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtBuscarCliente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscarCliente, javax.swing.GroupLayout.Alignment.TRAILING))
@@ -157,4 +173,16 @@ public class ConsultarCliente extends javax.swing.JFrame {
     private javax.swing.JTable tblDatosCliente;
     private javax.swing.JTextField txtBuscarCliente;
     // End of variables declaration//GEN-END:variables
+class FondoPanel extends JPanel
+{
+    private Image imagen;
+    @Override
+    public  void paint (Graphics g){
+        imagen= new ImageIcon(getClass().getResource("/fondos/fondo8.jpg")).getImage();
+        g.drawImage(imagen,0,0,getWidth(),getHeight(),this);
+        setOpaque(false);
+        super.paint(g);
+    }
+}
+
 }
