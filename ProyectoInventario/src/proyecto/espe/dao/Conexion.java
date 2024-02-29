@@ -35,7 +35,7 @@ public class Conexion {
     }
 
     public Conexion crearConexion() {
-        String servidor = "localhost";
+        String servidor = "10.40.27.122";
         int puerto = 27017;
         try {
             mongo = new MongoClient(servidor, puerto);
