@@ -18,8 +18,8 @@ public class ConsultarCliente extends javax.swing.JFrame {
     /**
      * Creates new form ConsultarCliente
      */
-    
-    FondoPanel fondo2= new FondoPanel();
+    FondoPanel fondo2 = new FondoPanel();
+
     public ConsultarCliente() {
         this.setContentPane(fondo2);
         initComponents();
@@ -173,16 +173,18 @@ public class ConsultarCliente extends javax.swing.JFrame {
     private javax.swing.JTable tblDatosCliente;
     private javax.swing.JTextField txtBuscarCliente;
     // End of variables declaration//GEN-END:variables
-class FondoPanel extends JPanel
-{
-    private Image imagen;
-    @Override
-    public  void paint (Graphics g){
-        imagen= new ImageIcon(getClass().getResource("/fondos/fondo8.jpg")).getImage();
-        g.drawImage(imagen,0,0,getWidth(),getHeight(),this);
-        setOpaque(false);
-        super.paint(g);
+
+    class FondoPanel extends JPanel {
+
+        private Image imagen;
+
+        @Override
+        public void paint(Graphics g) {
+            imagen = new ImageIcon(getClass().getResource("/fondos/fondo8.jpg")).getImage();
+            g.drawImage(imagen, 0, 0, getWidth(), getHeight(), this);
+            setOpaque(false);
+            super.paint(g);
+        }
     }
-}
 
 }
