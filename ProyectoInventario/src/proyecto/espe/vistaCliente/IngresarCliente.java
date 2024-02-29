@@ -4,6 +4,11 @@
  */
 package proyecto.espe.vistaCliente;
 
+import java.awt.Graphics;
+import java.awt.Image;
+import javax.swing.ImageIcon;
+import javax.swing.JPanel;
+
 /**
  *
  * @author PC
@@ -13,7 +18,10 @@ public class IngresarCliente extends javax.swing.JFrame {
     /**
      * Creates new form IngresarCliente
      */
+    FondoPanel fondo= new FondoPanel();
+    
     public IngresarCliente() {
+        this.setContentPane(fondo);
         initComponents();
     }
 
@@ -44,27 +52,40 @@ public class IngresarCliente extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jLabel1.setFont(new java.awt.Font("Segoe UI Black", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("INGRESAR CLIENTE");
 
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
         jLabel2.setText("CEDULA");
 
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
         jLabel3.setText("NOMBRE");
 
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
         jLabel4.setText("APELLIDO");
 
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
         jLabel5.setText("TELEFONO");
 
         btnRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/atras (1).png"))); // NOI18N
 
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
         jLabel6.setText("DIRECCION");
 
         txtDireccionCliente.setColumns(20);
         txtDireccionCliente.setRows(5);
         jScrollPane1.setViewportView(txtDireccionCliente);
 
+        btnRegistrar.setBackground(new java.awt.Color(153, 255, 153));
+        btnRegistrar.setFont(new java.awt.Font("Segoe UI Historic", 1, 12)); // NOI18N
+        btnRegistrar.setForeground(new java.awt.Color(0, 0, 0));
         btnRegistrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/agregar-usuario.png"))); // NOI18N
         btnRegistrar.setText("REGISTRAR");
 
+        btnSalir.setBackground(new java.awt.Color(153, 255, 153));
+        btnSalir.setFont(new java.awt.Font("Segoe UI Historic", 1, 12)); // NOI18N
+        btnSalir.setForeground(new java.awt.Color(0, 0, 0));
         btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/salida.png"))); // NOI18N
         btnSalir.setText("SALIR");
 
@@ -73,58 +94,53 @@ public class IngresarCliente extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
+                .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(9, 9, 9)
+                        .addComponent(btnRegresar)
+                        .addGap(68, 68, 68)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addGap(28, 28, 28)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(btnRegistrar)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                                        .addComponent(btnSalir))
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addGap(33, 33, 33)
+                                .addComponent(txtTelefonoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(198, 198, 198))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(txtNombreCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(69, 69, 69)
                                 .addComponent(txtApellidoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addGroup(layout.createSequentialGroup()
-                                    .addComponent(btnRegresar)
-                                    .addGap(146, 146, 146)
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel2)
-                                        .addGap(37, 37, 37)
-                                        .addComponent(txtCedulaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel3)
-                                        .addGap(223, 223, 223)
-                                        .addComponent(jLabel4)))))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(38, 38, 38)
-                                .addComponent(txtTelefonoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(28, 28, 28)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(btnRegistrar)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
-                                        .addComponent(btnSalir))
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(198, 198, 198))))
+                                    .addComponent(jLabel2)
+                                    .addGap(37, 37, 37)
+                                    .addComponent(txtCedulaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel3)
+                                    .addGap(223, 223, 223)
+                                    .addComponent(jLabel4))))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(btnRegresar))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addComponent(jLabel1)))
+                .addGap(21, 21, 21)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnRegresar)
+                    .addComponent(jLabel1))
                 .addGap(51, 51, 51)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -210,4 +226,17 @@ public class IngresarCliente extends javax.swing.JFrame {
     private javax.swing.JTextField txtNombreCliente;
     private javax.swing.JTextField txtTelefonoCliente;
     // End of variables declaration//GEN-END:variables
+
+class FondoPanel extends JPanel
+{
+    private Image imagen;
+    @Override
+    public  void paint (Graphics g){
+        imagen= new ImageIcon(getClass().getResource("/fondos/fondo2.jpg")).getImage();
+        g.drawImage(imagen,0,0,getWidth(),getHeight(),this);
+        setOpaque(false);
+        super.paint(g);
+    }
+}
+
 }
