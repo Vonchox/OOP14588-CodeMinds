@@ -8,6 +8,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
+import proyecto.espe.vistaGeneral.MenuAdmin;
 
 /**
  *
@@ -70,6 +71,11 @@ public class ConsultarProducto extends javax.swing.JInternalFrame {
         btnModificar.setForeground(new java.awt.Color(0, 0, 0));
         btnModificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/editar.png"))); // NOI18N
         btnModificar.setText("MODIFICAR");
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
 
         btnEliminar.setBackground(new java.awt.Color(255, 204, 204));
         btnEliminar.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
@@ -79,6 +85,11 @@ public class ConsultarProducto extends javax.swing.JInternalFrame {
 
         btnArchivo.setBackground(new java.awt.Color(51, 51, 51));
         btnArchivo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/carpeta.png"))); // NOI18N
+        btnArchivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnArchivoActionPerformed(evt);
+            }
+        });
 
         btnRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/atras (1).png"))); // NOI18N
         btnRegresar.addActionListener(new java.awt.event.ActionListener() {
@@ -132,10 +143,11 @@ public class ConsultarProducto extends javax.swing.JInternalFrame {
                 .addGap(43, 43, 43)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnModificar)
-                    .addComponent(btnEliminar)
-                    .addComponent(btnArchivo))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnArchivo)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnModificar)
+                        .addComponent(btnEliminar)))
                 .addGap(33, 33, 33))
         );
 
@@ -145,6 +157,20 @@ public class ConsultarProducto extends javax.swing.JInternalFrame {
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnRegresarActionPerformed
+
+    private void btnArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnArchivoActionPerformed
+        CodigosProductos codigos= new CodigosProductos();
+        MenuAdmin.escritorio1.add(codigos);
+        codigos.toFront();
+        codigos.setVisible(true);
+    }//GEN-LAST:event_btnArchivoActionPerformed
+
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        ModificarProducto modificar= new ModificarProducto();
+        MenuAdmin.escritorio1.add(modificar);
+        modificar.toFront();
+        modificar.setVisible(true);
+    }//GEN-LAST:event_btnModificarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
