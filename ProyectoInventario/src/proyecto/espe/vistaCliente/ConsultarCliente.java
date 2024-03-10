@@ -18,7 +18,7 @@ public class ConsultarCliente extends javax.swing.JFrame {
 
     /**
      * Creates new form ConsultarCliente
-     */
+     */ 
     FondoPanel fondo2 = new FondoPanel();
 
     public ConsultarCliente() {

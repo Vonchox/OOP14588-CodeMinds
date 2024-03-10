@@ -24,6 +24,7 @@ public class ConsultarProducto extends javax.swing.JInternalFrame {
         this.setContentPane(f1);
         initComponents();
         //MetodosProductos
+        //MetodsoInventario
     }
 
     /**
